@@ -1,5 +1,3 @@
-import matter from 'gray-matter';
-import marked from 'marked';
 import ImageKit from 'imagekit';
 import _ from 'lodash';
 
