@@ -3,7 +3,6 @@ import ImageKitImage from '../../includes/ImageKitImage';
 import { getAlbums, getImagesByAlbum } from '../../api';
 
 export default function Albums(props) {
-    console.log(props);
   return (
     <DefaultLayout albums={props.albums}>
       <section className="lg:mx-6 mx-4 mt-2 flex-1">
