@@ -1,6 +1,6 @@
-import DefaultLayout from '@layouts/Default';
-import ImageKitImage from '@includes/ImageKitImage';
-import { getAlbums, getImagesByAlbum } from '@api';
+import DefaultLayout from '../layouts/Default';
+import ImageKitImage from '../includes/ImageKitImage';
+import { getAlbums, getImagesByAlbum } from '../api';
 
 export default function Home(props) {
   return (

@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import Instagram from '@assets/Instagram';
-import Youtube from '@assets/Youtube';
+import Instagram from '../assets/Instagram';
+import Youtube from '../assets/Youtube';
 
 const Footer = () => {
   return (

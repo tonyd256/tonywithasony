@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Title from '@assets/Title';
+import Title from '../assets/Title';
 
 const Header = props => {
   const router = useRouter();

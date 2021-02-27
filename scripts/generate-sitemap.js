@@ -11,7 +11,7 @@ const imagekit = new ImageKit({
 
 (async () => {
   const pages = await globby([
-    'src/pages/**/*.{tsx,ts,mdx}',
+    'src/pages/**/*.{jsx,js,mdx}',
     '!src/pages/**/[*',
     '!src/pages/_*',
     '!src/pages/api'
@@ -23,7 +23,7 @@ const imagekit = new ImageKit({
       ${pages.map( page => {
         const path = page
           .replace('src/pages', '')
-          .replace(/(.tsx|.ts|.mdx)/, '');
+          .replace(/(.jsx|.js|.mdx)/, '');
 
         const route = path === '/index' ? '' : path;
 

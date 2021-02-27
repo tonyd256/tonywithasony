@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import Header from '@includes/Header';
-import Footer from '@includes/Footer';
-import SEO from '@includes/SEO';
-import site from '@config';
+import Header from '../includes/Header';
+import Footer from '../includes/Footer';
+import SEO from '../includes/SEO';
+import site from '../config';
 
 const DefaultLayout = props => {
   return (

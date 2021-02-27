@@ -1,5 +1,5 @@
-import DefaultLayout from '@layouts/Default';
-import { getAlbums } from '@api';
+import DefaultLayout from '../layouts/Default';
+import { getAlbums } from '../api';
 
 export default function NotFound(props) {
   return (

@@ -1,4 +1,4 @@
-import site from '@config';
+import site from '../config';
 
 const SEO = props => {
   const url = new URL(props.url || "", site.url);

@@ -1,7 +1,7 @@
-import DefaultLayout from '@layouts/Default';
-import Brands from '@includes/Brands';
-import Contact from '@includes/Contact';
-import { getAlbums } from '@api';
+import DefaultLayout from '../layouts/Default';
+import Brands from '../includes/Brands';
+import Contact from '../includes/Contact';
+import { getAlbums } from '../api';
 
 export default function About(props) {
   return (

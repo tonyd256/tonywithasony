@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import DefaultLayout from '@layouts/Default';
-import { getAlbums } from '@api';
+import DefaultLayout from '../layouts/Default';
+import { getAlbums } from '../api';
 
 export default function Sitemap(props) {
   return (
