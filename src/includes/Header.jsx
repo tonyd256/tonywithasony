@@ -30,6 +30,11 @@ const Header = props => {
               );
             })}
             <li>
+              <Link href="/films">
+                <a className={`lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black${page === '/films' ? ' text-black' : ''}`}>films</a>
+              </Link>
+            </li>
+            <li>
               <Link href="/about">
                 <a className={`lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black${page === '/about' ? ' text-black' : ''}`}>about</a>
               </Link>

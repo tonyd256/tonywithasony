@@ -8,8 +8,8 @@ export default function Albums(props) {
       <section className="lg:mx-6 mx-4 mt-2 flex-1">
         <div className="flexbin">
           {props.images.map((i, k) => (
-            <a href="#">
-              <img src={i.url} key={k} />
+            <a href="#" key={k}>
+              <ImageKitImage src={i.url} />
             </a>
           ))}
         </div>

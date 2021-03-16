@@ -9,7 +9,7 @@ export default function Home(props) {
         <div className="custom-flexbin">
           {props.images.map(image => (
             <a href="#" key={image.name}>
-              <img src={image.url} />
+              <ImageKitImage src={image.url} />
             </a>
           ))}
         </div>
