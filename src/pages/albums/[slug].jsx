@@ -1,18 +1,12 @@
 import DefaultLayout from '../../layouts/Default';
-import ImageKitImage from '../../includes/ImageKitImage';
+import Gallery from '../../includes/Gallery';
 import { getAlbums, getImagesByAlbum } from '../../api';
 
 export default function Albums(props) {
   return (
     <DefaultLayout albums={props.albums}>
       <section className="lg:mx-6 mx-4 mt-2 flex-1">
-        <div className="flexbin">
-          {props.images.map((i, k) => (
-            <a href="#" key={k}>
-              <ImageKitImage src={i.url} />
-            </a>
-          ))}
-        </div>
+        <Gallery images={props.images} />
       </section>
     </DefaultLayout>
   )
