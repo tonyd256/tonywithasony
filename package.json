@@ -6,7 +6,7 @@
     "dev": "npx eleventy --serve",
     "build": "npm-run-all build:html build:css",
     "build:html": "npx @11ty/eleventy",
-    "build:css": "sass _sass/main.scss | npx postcss > _site/css/main.css"
+    "build:css": "mkdir -p _site/css && sass _sass/main.scss | npx postcss > _site/css/main.css"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1",
