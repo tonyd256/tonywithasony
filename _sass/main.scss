@@ -1,4 +1,6 @@
-@import "global.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 $flexbin-row-height: 310px;
 $flexbin-row-height-tablet: 200px;
