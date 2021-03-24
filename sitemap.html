@@ -1,0 +1,16 @@
+---
+layout: default
+title: Sitemap
+sitemapPriority: 0.2
+---
+
+<div class="mx-8">
+  <h1 class="text-4xl mb-6">SiteMap</h1>
+  <ul class="inline-block">
+  {% for item in collections.all %}
+    <li class="cursor-pointer">
+      <a class="block" href="{{item.url | absolute_url }}">{{item.data.title | default: item.url}}</a>
+    </li>
+  {% endfor %}
+  </ul>
+</div>

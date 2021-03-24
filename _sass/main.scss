@@ -1,0 +1,33 @@
+@import "global";
+
+$flexbin-row-height: 310px;
+$flexbin-row-height-tablet: 200px;
+$flexbin-row-height-phone: 200px;
+
+@import "../node_modules/flexbin/flexbin.scss";
+
+.custom-flexbin {
+  @include flexbin(400px, 10px);
+
+  @media (max-width: 1280px) {
+    @include flexbin(300px, 8px);
+  }
+  @media (max-width: 1024px) {
+    @include flexbin(250px, 5px);
+  }
+  @media (max-width: 786px) {
+    @include flexbin(200px, 4px);
+  }
+  @media (max-width: 640px) {
+    @include flexbin(400px, 4px);
+  }
+  @media (max-width: 500px) {
+    @include flexbin(300px, 4px);
+  }
+  @media (max-width: 400px) {
+    @include flexbin(200px, 4px);
+  }
+}
+
+@import "imports/header";
+@import "imports/films";

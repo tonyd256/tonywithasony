@@ -1,0 +1,42 @@
+<header class="lg:px-8 px-6 flex flex-wrap lg:justify-start justify-between items-center lg:py-4 py-4">
+  <div class="lg:mr-6">
+    <a href="/">
+      {% include title.html %}
+    </a>
+  </div>
+  <label htmlFor="menu-toggle" class="pointer-cursor lg:hidden block">Menu</label>
+  <input class="hidden" id="menu-toggle" type="checkbox" />
+
+  <div class="lg:max-h-full max-h-0 overflow-y-hidden lg:flex lg:items-center lg:w-auto w-full transition-all duration-500" id="menu">
+    <nav>
+      <ul class="lg:flex items-center justify-between lg:text-left text-right text-lg font-normal uppercase text-gray-400 pt-4 lg:pt-0 tracking-wider">
+        {% for album in albums limit:1 %}
+          <li key={{album}}>
+            <a class="lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black {% if page.url == '/' %}text-black{% endif %}" href="/">
+              {{album}}
+            </a>
+          </li>
+        {% endfor %}
+        {% for album in albums offset:1 %}
+          {% capture url %}/albums/{{album}}/{% endcapture %}
+          <li key={{album}}>
+            <a class="lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black {% if page.url == url %}text-black{% endif %}"
+               href="{{url}}">
+              {{album}}
+            </a>
+          </li>
+        {% endfor %}
+        <li>
+          <a class="lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black{% if page.url == '/films/' %} text-black{% endif %}" href="/films">
+            films
+          </a>
+        </li>
+        <li>
+          <a class="lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black{% if page.url == '/about/'%} text-black{% endif %}" href="/about">
+            about
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

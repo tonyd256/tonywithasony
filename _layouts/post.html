@@ -1,0 +1,18 @@
+---
+layout: default
+---
+
+<section class="post">
+  {% if page.content_img_path %}
+    <img class="header-image" src="{{ page.content_img_path }}" alt="header image"/>
+  {% endif %}
+  <header class="hero">
+    <div class="copy">
+      <h1>{{ page.title }}</h1>
+      <small class="publish-date">{{ page.date | date: '%A, %B %e, %Y' }}</small>
+    </div>
+  </header>
+  <div class="content">
+    {{ content }}
+  </div>
+</section>
