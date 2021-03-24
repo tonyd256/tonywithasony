@@ -8,7 +8,7 @@ module.exports = config => {
   config.addPassthroughCopy({ "public": "/" });
   config.on('afterBuild', renderSass);
 
-  if (!process.env.NETLIFY) {
+  if (process.env.ELEVENTY_ENV !== 'production') {
     config.addWatchTarget("./_sass");
   }
 
@@ -34,9 +34,9 @@ function renderSass() {
 
     postcss([require('tailwindcss'), require('autoprefixer')]).process(result.css.toString(), { from: '_sass/main.css', to: 'css/main.css' })
       .then( function (result) {
-        fs.writeFile("_site/css/main.css", result.css, function () { return true; });
+        fs.writeFileSync("_site/css/main.css", result.css, function () { return true; });
         if (result.map) {
-          fs.writeFile("_site/css/main.css.map", result.map.toString(), function () { return true; });
+          fs.writeFileSync("_site/css/main.css.map", result.map.toString(), function () { return true; });
         }
       });
   })
