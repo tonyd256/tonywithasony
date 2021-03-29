@@ -4,7 +4,7 @@
       {% include title.html %}
     </a>
   </div>
-  <label htmlFor="menu-toggle" class="pointer-cursor lg:hidden block">Menu</label>
+  <label for="menu-toggle" class="pointer-cursor lg:hidden block">Menu</label>
   <input class="hidden" id="menu-toggle" type="checkbox" />
 
   <div class="lg:max-h-full max-h-0 overflow-y-hidden lg:flex lg:items-center lg:w-auto w-full transition-all duration-500" id="menu">
@@ -29,6 +29,11 @@
         <li>
           <a class="lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black{% if page.url == '/films/' %} text-black{% endif %}" href="/films">
             films
+          </a>
+        </li>
+        <li>
+          <a class="lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black{% if page.url == '/posts/' %} text-black{% endif %}" href="/posts">
+            writtings
           </a>
         </li>
         <li>

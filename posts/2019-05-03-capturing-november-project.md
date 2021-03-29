@@ -3,21 +3,21 @@ title: Capturing November Project
 teaser: How to balance the camera's settings when taking photos for an early
   morning workout group using a fast shutter speed and wide aperture.
 categories: [blog, education]
-tags: [november project, low light, action]
+tags: [post, november project, low light, action]
 layout: post
 ---
 
-Wait, what the heck is [November Project]? It’s a free fitness movement focused
+Wait, what the heck is [November Project]? It’s a free fitness workout group focused
 on building community through fun and free outdoor, early morning workouts.
 There are 49 cities around the world with a November Project so check them out!
 For now, we’re going to focus on how we capture these workouts.
 
 [November Project]: https://november-project.com
 
-{% include post-image.html
-  src="https://ik.imagekit.io/tony/_DSC6328_SyIeBe5s4.jpg"
-  alt="November Project Tunnel"
-  settings="ISO 100 - F2.8 - 1/500s"
+{% include post-image.html,
+  src: "https://ik.imagekit.io/tony/_DSC6328_SyIeBe5s4.jpg",
+  alt: "November Project Tunnel",
+  settings: "ISO 100 - F2.8 - 1/500s"
 %}
 
 If you were paying attention, these workouts are in the early morning, usually
@@ -53,10 +53,10 @@ your ISO over the course of the workout for two reasons, most importantly, high
 ISO will lead to grainy photos but also at some point you will max out your
 shutter speed and your photos will still be too bright.
 
-{% include post-image.html
-  src="https://ik.imagekit.io/tony/_DSC5827_SkM7Cm9i4.jpg"
-  alt="Night Time Runner"
-  settings="ISO 6400 - F1.8 - 1/400s"
+{% include post-image.html,
+  src: "https://ik.imagekit.io/tony/_DSC5827_SkM7Cm9i4.jpg",
+  alt: "Night Time Runner",
+  settings: "ISO 6400 - F1.8 - 1/400s"
 %}
 
 You could also try using ISO AUTO. In this mode, you control shutter speed and
@@ -99,10 +99,10 @@ fives, hugs, partner exercises, tunnels, etc. Children being cute, dogs being
 dogs … these things are always great to capture. Another thing that works is
 encouraging silly faces or jumping style photos. 
 
-{% include post-image.html
-  src="https://ik.imagekit.io/tony/_DSC9415_Sy81z49oN.jpg"
-  alt="Rule of 3rds with kid"
-  settings="ISO 100 - F7.1 - 1/250s - flash"
+{% include post-image.html,
+  src: "https://ik.imagekit.io/tony/_DSC9415_Sy81z49oN.jpg",
+  alt: "Rule of 3rds with kid",
+  settings: "ISO 100 - F7.1 - 1/250s - flash"
 %}
 
 Find the light. Try to position yourself so you have the light sources just in
@@ -110,10 +110,10 @@ front of your subjects to illuminate their faces. Is the sun rising? That could
 make for a good background! It could also illuminate your subjects with an
 awesome golden colored light!
 
-{% include post-image.html
-  src="https://ik.imagekit.io/tony/_DSC0407_S1OaRm5oN.jpg"
-  alt="Use Street Lights for Lighting"
-  settings="ISO 6400 - F1.8 - 1/250s"
+{% include post-image.html,
+  src: "https://ik.imagekit.io/tony/_DSC0407_S1OaRm5oN.jpg",
+  alt: "Use Street Lights for Lighting",
+  settings: "ISO 6400 - F1.8 - 1/250s"
 %}
 
 Capture your workout theme. Did the workout have a theme? Make sure to capture
@@ -147,10 +147,10 @@ did it’s job but usually it works. I might touch up some photos a bit more if 
 think they need it. Sometimes, I take the picture very crooked so I’ll crop and
 rotate the photos.
 
-{% include post-image.html
-  src="https://ik.imagekit.io/tony/auto-settings_H1tS445oV.jpg"
-  alt="Difference between as shot and enhanced"
-  settings="ISO 100 - F4.0 - 1/200s"
+{% include post-image.html,
+  src: "https://ik.imagekit.io/tony/auto-settings_H1tS445oV.jpg",
+  alt: "Difference between as shot and enhanced",
+  settings: "ISO 100 - F4.0 - 1/200s"
 %}
 
 Now it’s time to export them. With Photos, simply select them all and drag them

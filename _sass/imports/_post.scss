@@ -1,0 +1,43 @@
+.content {
+  p {
+    @apply my-5;
+    @apply font-light;
+    @apply tracking-wide;
+
+    &.settings {
+      @apply mt-0;
+    }
+    &.image {
+      @apply mb-0;
+    }
+  }
+  a {
+    @apply underline;
+  }
+  strong {
+    @apply font-bold;
+  }
+  i {
+    @apply italic;
+  }
+  h1 {
+    @apply text-3xl;
+  }
+  h2 {
+    @apply text-2xl;
+  }
+  h3 {
+    @apply text-xl;
+  }
+  ul {
+    list-style-type: square;
+    @apply my-4;
+    @apply pl-7;
+    @apply font-light;
+    @apply tracking-wide;
+
+    li:not(:last-child) {
+      @apply mb-2;
+    }
+  }
+}

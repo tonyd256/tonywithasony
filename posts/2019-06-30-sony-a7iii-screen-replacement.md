@@ -2,7 +2,7 @@
 title: Sony A7iii Screen Repair
 teaser: Cracked my Sony A7iii screen. Here's the story and how I fixed it.
 categories: [blog]
-tags: [gear, repair]
+tags: [post, gear, repair]
 layout: post
 ---
 

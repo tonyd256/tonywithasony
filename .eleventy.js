@@ -13,6 +13,10 @@ module.exports = config => {
     return new URL(value, url).href;
   });
 
+  let markdownIt = require("markdown-it");
+  config.setLibrary("md", markdownIt("commonmark")
+    .use(require("markdown-it-attrs")));
+
   return {
     dir: {
       layouts: "_layouts"

@@ -3,7 +3,7 @@ title: Action Photography without all the Settings
 teaser: You don't always have to use Manual mode. Shutter Priority Mode was made
   for this and it's the easier way to capture action photography.
 categories: [blog, education]
-tags: [low light, action]
+tags: [post, low light, action]
 layout: post
 ---
 
@@ -22,10 +22,10 @@ at ISO 100 to 400. In the winter, I'll use ISO 100 to 6400. If your camera
 doesn't have the range ability with Auto ISO, you could simple use Auto ISO and
 be fine. Remember, a grainy photo is better than no photo.
 
-{% include post-image.html
-  src="https://ik.imagekit.io/tony/_DSC7128_MaWPdjinS.jpg"
-  alt="November Project group jump squats"
-  settings="ISO 100 - F4.5 - 1/500s"
+{% include post-image.html,
+  src: "https://ik.imagekit.io/tony/_DSC7128_MaWPdjinS.jpg",
+  alt: "November Project group jump squats",
+  settings: "ISO 100 - F4.5 - 1/500s"
 %}
 
 [November Project]: https://november-project.com

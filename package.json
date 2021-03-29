@@ -3,19 +3,26 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "npx eleventy --serve",
+    "dev": "concurrently \"yarn dev:html\" \"yarn dev:css\"",
+    "dev:html": "npx eleventy --serve",
+    "dev:css": "chokidar \"**/*.html\" \"**/*.liquid\" \"**/*.scss\" \".eleventy.js\" -i \"_site\" -i \"node_modules\" -c \"yarn build:css\" --initial",
     "build": "npm-run-all build:html build:css",
     "build:html": "npx @11ty/eleventy",
     "build:css": "mkdir -p _site/css && sass _sass/main.scss | npx postcss > _site/css/main.css"
   },
-  "devDependencies": {
+  "dependencies": {
     "@11ty/eleventy": "^0.12.1",
     "autoprefixer": "^10.1.0",
+    "chokidar-cli": "^2.1.0",
+    "concurrently": "^6.0.0",
     "date-fns": "^2.19.0",
     "dotenv": "^8.2.0",
     "flexbin": "^0.2.0",
     "imagekit": "^3.1.1",
     "lodash": "^4.17.21",
+    "markdown-it": "^12.0.4",
+    "markdown-it-attrs": "^4.0.0",
+    "markdown-it-container": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.2.1",
     "postcss-cli": "^8.3.1",
