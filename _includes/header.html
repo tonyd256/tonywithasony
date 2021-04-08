@@ -7,12 +7,12 @@
   <label for="menu-toggle" class="pointer-cursor lg:hidden block">Menu</label>
   <input class="hidden" id="menu-toggle" type="checkbox" />
 
-  <div class="lg:max-h-full max-h-0 overflow-y-hidden lg:flex lg:items-center lg:w-auto w-full transition-all duration-500" id="menu">
-    <nav>
-      <ul class="lg:flex items-center justify-between lg:text-left text-right text-lg font-normal uppercase text-gray-400 pt-4 lg:pt-0 tracking-wider">
+  <div class="lg:max-h-full max-h-0 overflow-y-hidden lg:flex lg:flex-1 lg:items-center lg:w-auto w-full transition-all duration-500" id="menu">
+    <nav class="w-full lg:max-w-screen-md">
+      <ul class="lg:flex items-center justify-around lg:text-left text-right text-lg font-normal uppercase text-gray-400 pt-4 lg:pt-0 tracking-wider">
         {% for album in albums limit:1 %}
           <li key={{album}}>
-            <a class="lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black {% if page.url == '/' %}text-black{% endif %}" href="/">
+            <a class="lg:pt-5 py-3 block hover:text-black {% if page.url == '/' %}text-black{% endif %}" href="/">
               {{album}}
             </a>
           </li>
@@ -20,24 +20,24 @@
         {% for album in albums offset:1 %}
           {% capture url %}/albums/{{album}}/{% endcapture %}
           <li key={{album}}>
-            <a class="lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black {% if page.url == url %}text-black{% endif %}"
+            <a class="lg:pt-5 py-3 block hover:text-black {% if page.url == url %}text-black{% endif %}"
                href="{{url}}">
               {{album}}
             </a>
           </li>
         {% endfor %}
         <li>
-          <a class="lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black{% if page.url == '/films/' %} text-black{% endif %}" href="/films">
+          <a class="lg:pt-5 py-3 block hover:text-black{% if page.url == '/films/' %} text-black{% endif %}" href="/films">
             films
           </a>
         </li>
         <li>
-          <a class="lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black{% if page.url == '/posts/' %} text-black{% endif %}" href="/posts">
+          <a class="lg:pt-5 py-3 block hover:text-black{% if page.url == '/posts/' %} text-black{% endif %}" href="/posts">
             writtings
           </a>
         </li>
         <li>
-          <a class="lg:px-8 lg:pt-5 py-3 px-0 block hover:text-black{% if page.url == '/about/'%} text-black{% endif %}" href="/about">
+          <a class="lg:pt-5 py-3 block hover:text-black{% if page.url == '/about/'%} text-black{% endif %}" href="/about">
             about
           </a>
         </li>

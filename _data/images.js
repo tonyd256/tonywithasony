@@ -1,5 +1,6 @@
 const ImageKit = require('imagekit');
 const _ = require('lodash');
+const albums = require('./albums.json');
 require('dotenv').config();
 
 const imagekit = new ImageKit({
@@ -13,9 +14,9 @@ async function getImagesByAlbum(slug) {
     const res = await imagekit.listFiles({
       path: 'lightroom/'+slug
     });
-    return res;
-    // const fullRes = await Promise.all(res.map(image => getImageMeta(image)));
-    // return _.reverse(_.sortBy(fullRes, o => o.metadata.exif.exif['CreateDate']));
+
+    const fullRes = await Promise.all(res.map(image => getImageMeta(image)));
+    return _.reverse(_.sortBy(fullRes, o => o.metadata.exif.exif['CreateDate']));
   } catch (e) {
     console.error(e);
   }
@@ -33,7 +34,6 @@ async function getImageMeta(image) {
 }
 
 module.exports = async function() {
-  const albums = ['trails', 'stream'];
   var albumsWithImages = {};
 
   for (var i = 0; i < albums.length; i++) {
