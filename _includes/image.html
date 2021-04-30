@@ -1,4 +1,5 @@
-<img src="{{image.url}}?tr=w-800"
-     srcSet="{{image.url}}?tr=w-800 1x, {{image.url}}?tr=w-1600 2x"
-     loading="lazy"
+<img src="{{image.url}}?tr=w-400"
+     srcset="{{image.url}}?tr=w-400 400w, {{image.url}}?tr=w-800 800w, {{image.url}}?tr=w-1600 1600w"
+     sizes="(max-width: 800px) 400px, 800px"
+     {% if lazy %}loading="lazy"{% endif %}
 />

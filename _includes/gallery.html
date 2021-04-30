@@ -1,9 +1,18 @@
 <section class="lg:mx-8 mx-4 mt-2 flex-1">
   <div class="custom-flexbin">
-    {% for image in images[album] %}
-      <a href="#" key="{{image.name}}">
-        {% include image.html, image %}
+    {% assign lazy = false %}
+    {% for image in images[album] limit: 6 %}
+      <a data-fslightbox href="{{image.url}}?tr=w-2048" key="{{image.name}}">
+        {% include image.html, image, lazy %}
+      </a>
+    {% endfor %}
+    {% assign lazy = true %}
+    {% for image in images[album] limit: 6 offset: continue %}
+      <a data-fslightbox href="{{image.url}}?tr=w-2048" key="{{image.name}}">
+        {% include image.html, image, lazy %}
       </a>
     {% endfor %}
   </div>
 </section>
+
+<script defer src="/js/fslightbox.js"></script>
