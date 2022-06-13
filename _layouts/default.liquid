@@ -1,14 +1,11 @@
 <!doctype html>
 <html lang="en">
-  {% include head.html %}
-
+  {% render "head" %}
   <body>
-    <main class="min-h-screen flex flex-col">
-      {% include header.html %}
-
+    <main class="min-h-screen flex lg:flex-row flex-col lg:justify-between justify-start">
+      {% render "header" %}
       {{ content }}
-
-      {% include footer.html %}
     </main>
+    {% render "footer" %}
   </body>
 </html>

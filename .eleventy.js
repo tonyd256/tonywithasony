@@ -1,7 +1,14 @@
 const format = require('date-fns/format');
 const site = require('./_data/site.json');
+const ampPlugin = require('@ampproject/eleventy-plugin-amp');
 
 module.exports = config => {
+  config.addPlugin(ampPlugin, {
+    ampCache: false,
+    imageBasePath: `${__dirname}/public`,
+    imageOptimization: true,
+    validation: false,
+  });
   config.addPassthroughCopy({ "public": "/" });
 
   config.addFilter('dateForSitemap', function (date) {

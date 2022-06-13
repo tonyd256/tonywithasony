@@ -3,13 +3,13 @@
     {% assign lazy = false %}
     {% for image in images[album] limit: 6 %}
       <a data-fslightbox href="{{image.url}}?tr=w-2048" key="{{image.name}}">
-        {% include image.html, image, lazy %}
+        {% render "image", image, lazy %}
       </a>
     {% endfor %}
     {% assign lazy = true %}
     {% for image in images[album] offset: 6 %}
       <a data-fslightbox href="{{image.url}}?tr=w-2048" key="{{image.name}}">
-        {% include image.html, image, lazy %}
+        {% render "image", image, lazy %}
       </a>
     {% endfor %}
   </div>

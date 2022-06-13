@@ -7,14 +7,14 @@ sitemapPriority: 1.0
 <section class="sm:mt-8 mt-4 lg:mx-8 mx-4 text-gray-800">
   <div class="flex content-center justify-center md:flex-row flex-col">
     <div class="md:w-1/3 w-full relative">
-      <img class="block w-full"
+      <amp-img class="block w-full"
            src="https://ik.imagekit.io/tony/i-tbjrTN4-X3_HyxkpvMFKV.jpg?tr=w-300"
            srcSet="https://ik.imagekit.io/tony/i-tbjrTN4-X3_HyxkpvMFKV.jpg?tr=w-600 2x"
-           alt="Funny Profile Photo" />
-      <img class="block hover:opacity-0 w-full absolute top-0 left-0"
+           alt="Funny Profile Photo"></amp-img>
+      <amp-img class="block hover:opacity-0 w-full absolute top-0 left-0"
            src="https://ik.imagekit.io/tony/i-7X3zWwQ-X3_ryyTDzYKN.jpg?tr=w-300"
            srcSet="https://ik.imagekit.io/tony/i-7X3zWwQ-X3_ryyTDzYKN.jpg?tr=w-600 2x"
-           alt="Profile Photo" />
+           alt="Profile Photo"></amp-img>
     </div>
     <div class="md:ml-6 md:w-2/3 w-full xl:text-3xl sm:text-2xl text-xl md:text-left text-justify font-normal antialiased tracking-wide xl:leading-10">
       <p class="md:mt-2 mt-8">
@@ -40,7 +40,7 @@ sitemapPriority: 1.0
       <p class="mt-4">
       Learn more about Tony in this podcast!
       </p>
-      <iframe class="max-w-full" scrolling="no" src="https://anchor.fm/runners-of-the-bay/embed/episodes/Episode-50-Tony-DiPasquale-Shows-Us-The-View-Through-His-Lens-erajoa?wmode=opaque" width="400px" data-embed="true" frameborder="0" height="102px"></iframe>
+      <amp-iframe class="max-w-full" scrolling="no" src="https://anchor.fm/runners-of-the-bay/embed/episodes/Episode-50-Tony-DiPasquale-Shows-Us-The-View-Through-His-Lens-erajoa?wmode=opaque" width="400px" data-embed="true" frameborder="0" height="102px"></amp-iframe>
       <p class="mt-4">
       Support Tony and his creativity with a one time, "Thank You!", or sign up
       as a member for access to members only creative content.
@@ -53,6 +53,6 @@ sitemapPriority: 1.0
     </div>
   </div>
 
-  {% include brands.html %}
-  {% include contact.html %}
+  {% render "brands" %}
+  {% render "contact" %}
 </section>
