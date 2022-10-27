@@ -1,10 +1,15 @@
 ---
 layout: default
-title: About - Tony DiPasquale
+title: About
+short_title: About
+tags: navpage
+order: 4
 sitemapPriority: 1.0
 ---
 
-{% render "header" %}
+<header class="px-6">
+  {% render "nav", color: "black", class: "sm:h-8 h-6", collections: collections %}
+</header>
 
 <section class="sm:mt-8 mt-4 lg:mx-8 mx-4 text-gray-800">
   <div class="flex mb-12">
@@ -36,12 +41,7 @@ sitemapPriority: 1.0
       <p class="mt-4">
         When not holding his Sony, Tony enjoys gardening, baking sourdough
         bread, very long runs on the trails, eating a plant-based diet, learning
-        new skills, and personal growth. He's also a co-leader of the San
-        Francisco chapter of
-        <a class="underline hover:text-gray-500"
-           href="//november-project.com/san-francisco-ca" target="_blank"
-           rel="noreferrer noopener">November Project</a>,
-        where you can find him working out early in the morning.
+        new skills, and personal growth.
       </p>
       <p class="mt-4">
       Learn more about Tony in this podcast!
