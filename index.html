@@ -3,21 +3,34 @@ layout: default
 sitemapPriority: 1.0
 ---
 
-<!-- Background image -->
-<div class="overflow-hidden h-screen w-screen absolute -z-10">
-  <amp-img
-    src="https://ik.imagekit.io/tony/lightroom/stream/_DSC7216_eFNFdJ0C-.jpg"
-    layout="fill"
-    width="320"
-    height="256"
-    object-fit="cover"
-  ></amp-img>
+<header class="lg:px-6 px-6 flex flex-col justify-between items-start py-5 w-full lg:w-auto opacity-0 animate-appear h-screen bg-black/40">
+  {% render "nav", color: "white", collections: collections %}
+
+  <div class="flex flex-1 justify-center items-center w-full">
+    <div class="lg:p-10 lg:w-3/4 xl:w-2/4 px-4 w-full">
+      <p class="lg:text-5xl text-3xl text-slate-100 tracking-wider leading-snug font-sans font-bold italic text-center">
+        Tony is a SF-based photographer, videographer, and producer specializing in running and trail.
+      </p>
+    </div>
+  </div>
+</header>
+
+<div class="h-screen w-screen absolute -z-10">
+  <div class="flex items-center h-full justify-center">
+    {% render "title-animation" %}
+  </div>
+</div>
+<div class="overflow-hidden h-screen w-screen absolute -z-10 flex items-center">
+  <div class="flex items-center animate-tv-open h-0 overflow-hidden">
+    <video class="header" autoplay muted loop src="https://player.vimeo.com/progressive_redirect/playback/751023350/rendition/720p/file.mp4?loc=external&signature=3eb0c4e0b15726f7f9c546380726381bd6509b6361c1b388550fd30cc0b21b8e"></video>
+  </div>
 </div>
 
-<section class="max-w-screen-md h-[75vh] self-center">
-  <div class="flex pr-40 items-center h-full">
-    <h3 class="text-8xl lg:text-right">
-      Stories make the world.
-    </h3>
-  </div>
-</section>
+  <!-- <div class="w&#45;full flex items&#45;center flex&#45;col"> -->
+  <!--   <span class="text&#45;xl text&#45;slate&#45;100 mb&#45;5 font&#45;serif">Recent Projects</span> -->
+  <!--   <div class="animate&#45;bounce bg&#45;white dark:bg&#45;slate&#45;800 p&#45;2 w&#45;10 h&#45;10 ring&#45;1 ring&#45;slate&#45;900/5 dark:ring&#45;slate&#45;200/20 shadow&#45;lg rounded&#45;full flex items&#45;center justify&#45;center"> -->
+  <!--     <svg class="w&#45;6 h&#45;6 text&#45;violet&#45;500" fill="none" stroke&#45;linecap="round" stroke&#45;linejoin="round" stroke&#45;width="2" viewBox="0 0 24 24" stroke="currentColor"> -->
+  <!--       <path d="M19 14l&#45;7 7m0 0l&#45;7&#45;7m7 7V3"></path> -->
+  <!--     </svg> -->
+  <!--   </div> -->
+  <!-- </div> -->

@@ -3,3 +3,80 @@
 @import "tailwindcss/utilities";
 @import "./imports/_films.css";
 @import "./imports/_post.css";
+
+@layer base {
+  html {
+    font-family: Merriweather, system-ui, serif;
+  }
+}
+
+/* .project-video { */
+/*   height: 200px; */
+/* } */
+/*  */
+/* .project-video > div:first-child { */
+/*   transition-delay: 0s; */
+/*   transition-property: top, height; */
+/*   transition-timing-function: ease; */
+/*   transition-duration: .5s; */
+/*   z-index: -10; */
+/*   top: 0; */
+/*   height: 200px; */
+/* } */
+/*  */
+/* .open-full h3 { */
+/*   transition-property: opacity; */
+/*   transition-timing-function: ease; */
+/*   transition-duration: 1s; */
+/*   opacity: 0; */
+/* } */
+/*  */
+/* .open-full > div:first-child { */
+/*   transition-delay: 0s; */
+/*   transition-timing-function: ease-in; */
+/*   transition-duration: 5s; */
+/*   height: 100vh; */
+/*   top: 0; */
+/* } */
+/*  */
+video.header {
+  height: 100vh;
+  min-width: 100vw;
+  object-fit: cover;
+}
+
+video.video-item {
+  height: auto;
+  min-width: 0;
+
+}
+
+.masonry {
+  display: flex;
+}
+
+.masonry-col {
+  flex: 1;
+}
+
+/* 1 column by default, hide columns 2 & 3 & 4 */
+.masonry-col--2, .masonry-col--3, .masonry-col--4 { display: none }
+
+/* 2 columns at medium size */
+@media ( min-width: 768px ) {
+  .masonry-col--2 { display: block; } /* show column 2 */
+}
+
+/* 3 columns at large size */
+@media ( min-width: 1080px ) {
+  .masonry-col--3 { display: block; } /* show column 3 */
+}
+
+/* 4 columns at large size */
+@media ( min-width: 1800px ) {
+  .masonry-col--4 { display: block; } /* show column 4 */
+}
+
+a {
+  -webkit-tap-highlight-color: transparent;
+}

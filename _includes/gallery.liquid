@@ -1,18 +1,16 @@
-<section class="lg:mx-8 mx-4 mt-2 flex-1">
-  <div class="custom-flexbin">
-    {% assign lazy = false %}
-    {% for image in images[album] limit: 6 %}
-      <a data-fslightbox href="{{image.url}}?tr=w-2048" key="{{image.name}}">
-        {% render "image", image, lazy %}
-      </a>
-    {% endfor %}
-    {% assign lazy = true %}
-    {% for image in images[album] offset: 6 %}
-      <a data-fslightbox href="{{image.url}}?tr=w-2048" key="{{image.name}}">
-        {% render "image", image, lazy %}
-      </a>
-    {% endfor %}
-  </div>
-</section>
+<div class="masonry">
+  <div class="masonry-col masonry-col--1 mr-1"></div>
+  <div class="masonry-col masonry-col--2 mx-1"></div>
+  <div class="masonry-col masonry-col--3 mx-1"></div>
+  <div class="masonry-col masonry-col--4 ml-1"></div>
 
-<script defer src="/js/fslightbox.js"></script>
+  {% for item in items %}
+    <div class="masonry-item mb-2">
+      {% if item.mime contains "video" %}
+        <video class="video-item w-full" controls src="{{ item.url }}?tr=w-800"></video>
+      {% else %}
+        <img class="w-full" srcset="{{ item.url }}?tr=w-400, {{ item.url }}?tr=w-800 2x" src="{{ item.url }}?tr=w-800" alt="Image for {{ client }}"></img>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>

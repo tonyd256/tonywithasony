@@ -1,0 +1,27 @@
+---
+title: Races
+short_title: Races
+layout: page
+tags: navpage
+sitemapPriority: 0.8
+video_url: "https://player.vimeo.com/progressive_redirect/playback/751023350/rendition/720p/file.mp4?loc=external&signature=3eb0c4e0b15726f7f9c546380726381bd6509b6361c1b388550fd30cc0b21b8e"
+---
+
+<section class="">
+  <div class="w-full my-14 flex justify-center">
+    <p class="2xl:w-2/4 lg:w-3/4 w-full px-4 md:text-5xl text-3xl text-slate-900 tracking-wider leading-snug font-sans font-bold italic text-center">
+      Looking to show off your race with epic content? Tony can help capture marketing photos and videos as well as produce for campaigns that sell out race entries.
+    </p>
+  </div>
+
+  <div class="masonry">
+    <div class="masonry-col masonry-col--1"></div>
+    <div class="masonry-col masonry-col--2"></div>
+    <div class="masonry-col masonry-col--3"></div>
+    <div class="masonry-col masonry-col--4"></div>
+
+    {% for project in collections.race %}
+      {% render "masonry-item", project: project %}
+    {% endfor %}
+  </div>
+</section>

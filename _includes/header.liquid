@@ -1,16 +1,23 @@
-<header class="lg:px-6 px-6 flex flex-col lg:justify-start justify-between items-start py-5 w-full lg:w-auto">
+<header class="lg:px-6 px-6 flex justify-between items-center py-3 w-full">
   <div class="my-4">
     <a href="/">
-      {% render "title" %}
+      {% render "title", class: "h-6" %}
     </a>
   </div>
-  <button on="tap:menubar.toggle" class="lg:hidden sm:mr-10 sm:mt-6 mr-6 mt-2 block text-3xl absolute right-0 text-white">☰</button>
 
-  <div id="menu-display" class="lg:flex hidden flex-1 w-auto" id="menu">
+  <button class="sm:hidden block text-3xl">☰</button>
+  <div id="menu-display" class="hidden sm:flex font-sans font-bold text-xl" id="menu">
+    <a class="lg:pt-5 py-3 lg:pr-4 block {% if page.url == '/' %} text-white{% endif %}" href="/">
+      Projects
+    </a>
+    <a class="lg:pt-5 py-3 lg:pr-4 block {% if page.url == '/about/' %} text-grey{% endif %}" href="/about">
+      About
+    </a>
   </div>
+
 </header>
 
-<amp-sidebar id="menubar" layout="nodisplay" side="right" class="py-6 px-8 flex flex-col items-end lg:hidden">
+<!--amp-sidebar id="menubar" layout="nodisplay" side="right" class="py-6 px-8 flex flex-col items-end lg:hidden">
   <button class="text-xl flex" on="tap:menubar.close">&#x2715;</button>
   <nav toolbar="(min-width: 784px)" toolbar-target="menu-display" class="w-full h-full">
     <ul class="flex flex-col lg:text-left text-right md:text-7xl sm:text-5xl text-3xl font-normal uppercase text-gray-300 pt-4 lg:pt-0 tracking-wider">
@@ -46,4 +53,4 @@
       </li>
     </ul>
   </nav>
-</amp-sidebar>
+</amp-sidebar--!>

@@ -1,15 +1,9 @@
 const format = require('date-fns/format');
 const site = require('./_data/site.json');
-const ampPlugin = require('@ampproject/eleventy-plugin-amp');
 
 module.exports = config => {
-  config.addPlugin(ampPlugin, {
-    ampCache: false,
-    imageBasePath: `${__dirname}/public`,
-    imageOptimization: true,
-    validation: false,
-  });
   config.addPassthroughCopy({ "public": "/" });
+  config.addPassthroughCopy({ "_js": "/js" });
 
   config.addFilter('dateForSitemap', function (date) {
     return format(date, 'yyyy-MM-dd');
@@ -20,9 +14,15 @@ module.exports = config => {
     return new URL(value, url).href;
   });
 
+  config.addFilter("keys", obj => Object.keys(obj));
+  config.addFilter("log", obj => console.log(obj));
+
   let markdownIt = require("markdown-it");
-  config.setLibrary("md", markdownIt("commonmark")
-    .use(require("markdown-it-attrs")));
+  config.setLibrary("md", markdownIt({
+    html: true
+  })
+    .use(require("markdown-it-attrs"))
+    .use(require('markdown-it-container'), 'dual'));
 
   return {
     dir: {

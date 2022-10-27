@@ -2,17 +2,19 @@
 layout: default
 ---
 
-<section class="lg:mx-8 mx-4">
+{% render "nav", collections: collections %}
+
+<section class="flex items-center flex-col w-full">
   {% if content_img_path %}
     <img class="block w-100 h-auto mt-5" src="{{ content_img_path }}" alt="header image"/>
   {% endif %}
-  <header class="mt-5">
-    <div class="copy">
-      <h1 class="text-3xl">{{ title }}</h1>
-      <small class="italic text-gray-400">{{ page.date | date: '%A, %B %e, %Y' }}</small>
+  <header class="mt-5 w-11/12">
+    <div class="text-left">
+      <h1 class="text-8xl tracking-wide font-display">{{ title }}</h1>
+      <!-- <small class="italic text&#45;gray&#45;400 font&#45;serif">{{ page.date | date: '%A, %B %e, %Y' }}</small> -->
     </div>
   </header>
-  <div class="content mt-4">
+  <div class="w-10/12 mt-4">
     {{ content }}
   </div>
 </section>

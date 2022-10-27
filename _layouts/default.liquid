@@ -1,9 +1,8 @@
 <!doctype html>
 <html lang="en">
   {% render "head" %}
-  <body>
-    <main class="min-h-screen flex lg:flex-row flex-col lg:justify-between justify-start">
-      {% render "header" %}
+  <body class="relative">
+    <main class="min-h-screen flex flex-col">
       {{ content }}
     </main>
     {% render "footer" %}
