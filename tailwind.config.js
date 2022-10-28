@@ -1,4 +1,3 @@
-const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   content: ['_site/**/*.html', '**/*.liquid', '**/*.html', '**/*.md'],
@@ -9,14 +8,6 @@ module.exports = {
       'display': ['Permanent Marker']
     },
     extend: {
-      colors: {
-        'pink': '#F578A4',
-        'blue': '#02EBFA',
-        'purple': '#A96EE6',
-        'green': '#30DB78',
-        'yellow': '#F5D841',
-        'orange': '#F4885B',
-      },
       keyframes: {
         'tv-close': {
           '0%': {
@@ -61,13 +52,4 @@ module.exports = {
       'zIndex': ['hover']
     }
   },
-  plugins: [
-    plugin(function({ addUtilities }) {
-      addUtilities({
-        '.text-fill-transparent': {
-          '-webkit-text-fill-color': 'transparent'
-        }
-      });
-    }),
-  ],
 }
