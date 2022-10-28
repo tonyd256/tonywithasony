@@ -39,10 +39,7 @@ function initMasonry() {
     items: '.masonry-item'
   });
 
-  grid.querySelectorAll('video').forEach( function (v) {
-    v.oncanplay = function () {
-      masonry.layout();
-      v.oncanplay = null;
-    };
+  imagesLoaded(grid, function () {
+    masonry.layout();
   });
 }
