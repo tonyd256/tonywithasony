@@ -1,9 +1,13 @@
 <div class="masonry-item">
   <a href="{{ project.url }}">
     <div class="w-full group relative project-video">
-      <div class="w-full h-full flex items-center overflow-hidden pointer-events-none">
-        {% if project.data.video_url %}
-          <video muted loop class="video-item w-full" src="{{ project.data.video_url }}"></video>
+      <div class="w-full h-full flex relative items-center overflow-hidden pointer-events-none">
+        {% if project.data.gif_url %}
+          <img class="w-full group-hover:hidden block absolute top-0 left-0 bottom-0 right-0 h-full" src="{{ project.data.photo_url }}" alt="{{ project.data.title }}"></img>
+          <img class="w-full" src="{{ project.data.gif_url }}" alt="{{ project.data.title }}"></img>
+        {% elsif project.data.video_url %}
+          <img class="w-full mouse:hidden block" srcset="{{ project.data.photo_url }}?tr=w-400, {{ project.data.photo_url }}?tr=w-800 2x" src="{{ project.data.photo_url }}?tr=w-800" alt="{{ project.data.title }}"></img>
+          <video muted loop class="video-item w-full mouse:block hidden" src="{{ project.data.video_url }}"></video>
         {% else %}
           <img class="w-full" srcset="{{ project.data.photo_url }}?tr=w-400, {{ project.data.photo_url }}?tr=w-800 2x" src="{{ project.data.photo_url }}?tr=w-800" alt="{{ project.data.title }}"></img>
         {% endif %}

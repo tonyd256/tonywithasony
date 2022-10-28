@@ -1,3 +1,4 @@
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   content: ['_site/**/*.html', '**/*.liquid', '**/*.html', '**/*.md'],
@@ -52,4 +53,9 @@ module.exports = {
       'zIndex': ['hover']
     }
   },
+  plugins: [
+    plugin(function({ addVariant }) {
+      addVariant('mouse', '@media (pointer: fine)');
+    })
+  ],
 }

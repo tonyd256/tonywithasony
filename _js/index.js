@@ -1,4 +1,3 @@
-// var save;
 var hold;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -8,28 +7,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
       c.addEventListener('mouseover', function (e) {
         let video = e.target.querySelector("video");
-        video.play();
-        // playing = true;
-        // save = setInterval(transition, 2000, e.target);
+        if (video) { video.play(); }
       });
 
       c.addEventListener('mouseout', function (e) {
         let video = e.target.querySelector("video");
-        video.pause();
-        // clearInterval(save);
-        // save = null;
-        // killOpenFull();
+        if (video) { video.pause(); }
       });
     });
   }
-
-  // if (document.querySelector(".project-video")) {
-  //   window.addEventListener('scroll', function () {
-  //     clearInterval(save);
-  //     save = null;
-  //     killOpenFull();
-  //   });
-  // }
 
   if (Colcade) {
     initMasonry();
@@ -45,27 +31,18 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function initMasonry() {
-  console.log('init');
-  new Colcade( '.masonry', {
+  const grid = document.querySelector('.masonry');
+  if (!grid) { return; }
+
+  const masonry = new Colcade(grid, {
     columns: '.masonry-col',
     items: '.masonry-item'
   });
-}
 
-// function transition(div) {
-//   let parent = div.querySelector("video").parentElement;
-//   div.classList.add('open-full');
-//   let offset = div.offsetTop - window.scrollY;
-//   parent.style.top = `-${offset}px`;
-//   clearInterval(save);
-//   save = null;
-// }
-//
-// function killOpenFull() {
-//   let div = document.querySelector('.open-full');
-//
-//   if (div) {
-//     div.classList.remove('open-full');
-//     div.querySelector("div").style.top = 0;
-//   }
-// }
+  grid.querySelectorAll('video').forEach( function (v) {
+    v.oncanplay = function () {
+      masonry.layout();
+      v.oncanplay = null;
+    };
+  });
+}
