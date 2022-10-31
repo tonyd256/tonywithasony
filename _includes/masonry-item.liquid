@@ -7,7 +7,7 @@
           <img class="w-full" src="{{ project.data.gif_url }}" alt="{{ project.data.title }}"></img>
         {% elsif project.data.video_url %}
           <img class="w-full mouse:hidden block" srcset="{{ project.data.photo_url }}?tr=w-400, {{ project.data.photo_url }}?tr=w-800 2x" src="{{ project.data.photo_url }}?tr=w-800" alt="{{ project.data.title }}"></img>
-          <video muted loop class="video-item w-full mouse:block hidden" src="{{ project.data.video_url }}"></video>
+          <video muted loop playsinline class="video-item w-full mouse:block hidden" src="{{ project.data.video_url }}"></video>
         {% else %}
           <img class="w-full" srcset="{{ project.data.photo_url }}?tr=w-400, {{ project.data.photo_url }}?tr=w-800 2x" src="{{ project.data.photo_url }}?tr=w-800" alt="{{ project.data.title }}"></img>
         {% endif %}

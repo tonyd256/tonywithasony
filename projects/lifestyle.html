@@ -3,9 +3,9 @@ title: Brand Lifestyle
 short_title: Lifestyle
 layout: page
 tags: navpage
-order: 2
+order: 1
 sitemapPriority: 0.8
-video_url: "https://player.vimeo.com/progressive_redirect/playback/751023350/rendition/720p/file.mp4?loc=external&signature=3eb0c4e0b15726f7f9c546380726381bd6509b6361c1b388550fd30cc0b21b8e"
+video_url: "https://player.vimeo.com/progressive_redirect/playback/765084612/rendition/720p/file.mp4?loc=external&signature=e0e42df5cec8343437b6401084377c51d231916deb691851594c3f462376b1a8"
 ---
 
 <section class="">
@@ -15,13 +15,15 @@ video_url: "https://player.vimeo.com/progressive_redirect/playback/751023350/ren
     </p>
   </div>
 
+  {% render "brands" %}
+
   <div class="masonry">
     <div class="masonry-col masonry-col--1"></div>
     <div class="masonry-col masonry-col--2"></div>
     <div class="masonry-col masonry-col--3"></div>
     <div class="masonry-col masonry-col--4"></div>
 
-    {% for project in collections.lifestyle %}
+    {% for project in collections.lifestyle reversed %}
       {% render "masonry-item", project: project %}
     {% endfor %}
   </div>

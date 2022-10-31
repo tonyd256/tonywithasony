@@ -5,7 +5,7 @@ layout: page
 tags: navpage
 order: 3
 sitemapPriority: 0.8
-video_url: "https://player.vimeo.com/progressive_redirect/playback/751023350/rendition/720p/file.mp4?loc=external&signature=3eb0c4e0b15726f7f9c546380726381bd6509b6361c1b388550fd30cc0b21b8e"
+video_url: "https://player.vimeo.com/progressive_redirect/playback/765341541/rendition/720p/file.mp4?loc=external&signature=c5a3f540222cc76288c64d0b147aafea057c5f937320afbd1c62134c63c01bb1"
 ---
 
 <section class="">
@@ -21,7 +21,7 @@ video_url: "https://player.vimeo.com/progressive_redirect/playback/751023350/ren
     <div class="masonry-col masonry-col--3"></div>
     <div class="masonry-col masonry-col--4"></div>
 
-    {% for project in collections.race %}
+    {% for project in collections.race reversed %}
       {% render "masonry-item", project: project %}
     {% endfor %}
   </div>

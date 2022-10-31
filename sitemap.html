@@ -1,16 +1,34 @@
 ---
-layout: default
+layout: base
 title: Sitemap
 sitemapPriority: 0.2
 ---
 
 <div class="lg:mx-8 mx-4">
   <h1 class="text-4xl mb-6">SiteMap</h1>
+  <h2 class="text-3xl mb-3">Projects</h2>
   <ul class="inline-block">
-  {% for item in collections.all %}
+  {% for item in collections.project reversed %}
     {% if item.url contains "404" %}{% else %}
       <li class="cursor-pointer">
-        <a class="block" href="{{item.url | absolute_url }}">{{item.data.title | default: item.url}}</a>
+        <a class="block" href="{{ item.url | absolute_url }}">{{ item.data.title | default: item.url}}</a>
+      </li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+  <h2 class="text-3xl mb-3 mt-6">Pages</h2>
+  <ul class="inline-block">
+  {% for item in collections.page %}
+    {% if item.url contains "404" %}{% else %}
+      <li class="cursor-pointer">
+        <a class="block" href="{{ item.url | absolute_url }}">{{ item.data.title | default: item.url}}</a>
+      </li>
+    {% endif %}
+  {% endfor %}
+  {% for item in collections.navpage %}
+    {% if item.url contains "404" %}{% else %}
+      <li class="cursor-pointer">
+        <a class="block" href="{{ item.url | absolute_url }}">{{ item.data.title | default: item.url}}</a>
       </li>
     {% endif %}
   {% endfor %}

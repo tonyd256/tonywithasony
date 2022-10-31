@@ -7,7 +7,7 @@
   {% for item in items %}
     <div class="masonry-item mb-2">
       {% if item.mime contains "video" %}
-        <video class="video-item w-full" controls src="{{ item.url }}?tr=w-800"></video>
+        <video class="video-item w-full" playsinline controls src="{{ item.url }}?tr=w-800"></video>
       {% else %}
         <img class="w-full" srcset="{{ item.url }}?tr=w-400, {{ item.url }}?tr=w-800 2x" src="{{ item.url }}?tr=w-800" alt="Image for {{ client }}"></img>
       {% endif %}
