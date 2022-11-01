@@ -5,7 +5,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="{%if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
 <meta property="og:url" content="{{ page.url | prepend: site.url }}">
-<meta property="og:image" content="{% if page.image %}{{ page.image }}{% else %}{{ site.image }}{% endif %}" />
+<meta property="og:image" content="{% if page.image %}{{ page.image }}{% elsif page.photo_url %}{{ page.photo_url }}{% else %}{{ site.image }}{% endif %}" />
 <meta property="og:site_name" content="{{ site.title }}">
 <meta property="article:publisher" content="{{ site.facebook }}" />
 <meta property="article:author" content="{{ site.facebook }}" />
