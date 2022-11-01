@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
-  {% render "head" %}
+  {% render "head", page: page, site: site, title: title, url: url, date: date, description: description, photo_url: photo_url %}
   <body class="relative">
+    {{ page.url }}
     {{ content }}
   </body>
 </html>
