@@ -10,7 +10,7 @@ sitemapPriority: 0.2
   <ul class="inline-block">
   {% for item in collections.project reversed %}
     {% if item.url contains "404" %}{% else %}
-      <li class="cursor-pointer">
+      <li class="cursor-pointer mb-4">
         <a class="block" href="{{ item.url | absolute_url }}">{{ item.data.title | default: item.url}}</a>
       </li>
     {% endif %}
@@ -20,14 +20,14 @@ sitemapPriority: 0.2
   <ul class="inline-block">
   {% for item in collections.page %}
     {% if item.url contains "404" %}{% else %}
-      <li class="cursor-pointer">
+      <li class="cursor-pointer mb-4">
         <a class="block" href="{{ item.url | absolute_url }}">{{ item.data.title | default: item.url}}</a>
       </li>
     {% endif %}
   {% endfor %}
   {% for item in collections.navpage %}
     {% if item.url contains "404" %}{% else %}
-      <li class="cursor-pointer">
+      <li class="cursor-pointer mb-4">
         <a class="block" href="{{ item.url | absolute_url }}">{{ item.data.title | default: item.url}}</a>
       </li>
     {% endif %}
