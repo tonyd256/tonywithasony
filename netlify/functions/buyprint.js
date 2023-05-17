@@ -28,5 +28,6 @@ exports.handler = async function (event, context) {
     statusCode: 303,
     headers: {
       'Location': session.url
+    }
   };
 };
