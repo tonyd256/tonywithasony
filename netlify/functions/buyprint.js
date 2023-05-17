@@ -14,7 +14,7 @@ exports.handler = async function (event, context) {
             },
             tax_code: 'txcd_20090028'
           },
-          unit_amount: '10',
+          unit_amount: 1000,
           tax_behavior: 'exclusive'
         },
         quantity: 1
