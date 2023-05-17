@@ -40,7 +40,9 @@ exports.handler = async function (event, context) {
           unit_amount: products[params.product]
         },
         quantity: 1,
-        adjustable_quantity: true
+        adjustable_quantity: {
+          enabled: true
+        }
       }
     ],
     mode: 'payment',
