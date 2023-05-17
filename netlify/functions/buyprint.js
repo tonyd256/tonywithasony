@@ -1,6 +1,6 @@
 const stripe = require('stripe')(process.ENV.STRIPE_API_KEY);
 
-export.handler = async function (event, context) {
+exports.handler = async function (event, context) {
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
