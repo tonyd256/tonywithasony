@@ -21,7 +21,7 @@ exports.handler = async function (event, context) {
       }
     ],
     mode: 'payment',
-    success_url: 'index.html'
+    success_url: 'https://tonywithasony.com'
   });
 
   return {
