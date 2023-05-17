@@ -1,23 +1,46 @@
 const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 
+const products = {
+  '4x6': 1000,
+  '5x7': 1200,
+  '6x6': 1200,
+  '6x8': 1400,
+  '8x8': 1500,
+  '8x10': 2000,
+  '8x12': 2100,
+  '9x12': 2300,
+  '10x10': 2300,
+  '11x14': 2500,
+  '12x12': 2300,
+  '12x18': 3000,
+  '16x16': 4000,
+  '16x20': 4000,
+  '16x24': 4000,
+  '18x24': 4500,
+  '20x20': 5500,
+  '20x24': 6000,
+  '20x30': 7000,
+};
+
 exports.handler = async function (event, context) {
+  const { product, image_url, filename } = event.queryStringParameters;
+
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
         price_data: {
           currency: 'USD',
           product_data: {
-            name: '11x14 Print',
-            images: [ event.queryStringParameters.image_url ],
+            name: product + ' Print',
+            images: [ image_url ],
             metadata: {
-              filename: event.queryStringParameters.filename
-            },
-            tax_code: 'txcd_20090028'
+              filename: filename
+            }
           },
-          unit_amount: 1000,
-          tax_behavior: 'exclusive'
+          unit_amount: products[product]
         },
-        quantity: 1
+        quantity: 1,
+        adjustable_quantity: true
       }
     ],
     mode: 'payment',
