@@ -21,7 +21,10 @@ exports.handler = async function (event, context) {
       }
     ],
     mode: 'payment',
-    success_url: 'https://tonywithasony.com'
+    success_url: 'https://tonywithasony.com',
+    shipping_address_collection: {
+      allowed_countries: ['US']
+    }
   });
 
   return {
