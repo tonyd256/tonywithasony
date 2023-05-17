@@ -19,11 +19,11 @@ const products = {
   '18x24': 4500,
   '20x20': 5500,
   '20x24': 6000,
-  '20x30': 7000,
+  '20x30': 7000
 };
 
 exports.handler = async function (event, context) {
-  const { product, image_url, filename } = event.queryStringParameters;
+  const params = event.queryStringParameters;
 
   const session = await stripe.checkout.sessions.create({
     line_items: [
@@ -31,13 +31,13 @@ exports.handler = async function (event, context) {
         price_data: {
           currency: 'USD',
           product_data: {
-            name: product + ' Print',
-            images: [ image_url ],
+            name: params.product + ' Print',
+            images: [ params.image_url ],
             metadata: {
-              filename: filename
+              filename: params.filename
             }
           },
-          unit_amount: products[product]
+          unit_amount: products[params.product]
         },
         quantity: 1,
         adjustable_quantity: true
