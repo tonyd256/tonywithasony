@@ -1,6 +1,6 @@
 const stripe = require('stripe')(process.env.STRIPE_API_KEY);
 
-export default async (request, context) => {
+export default async function (request, context) {
   const url = new URL(request.url);
   if (!url.searchParams.get("session_id")) {
     return;
