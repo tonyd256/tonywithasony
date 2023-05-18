@@ -6,7 +6,8 @@ export default async (request, context) => {
 
   const url = new URL(request.url);
   if (!url.searchParams.get("session_id")) {
-    return;
+    const url = new URL("/", req.url);
+    return Response.redirect(url);
   }
 
   const session = await stripe.checkout.sessions.retrieve(url.searchParams.get("session_id"));
