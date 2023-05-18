@@ -6,7 +6,7 @@ export default async (request, context) => {
 
   const url = new URL(request.url);
   if (!url.searchParams.get("session_id")) {
-    const url = new URL("/", req.url);
+    const url = new URL("/", request.url);
     return Response.redirect(url);
   }
 
