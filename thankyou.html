@@ -1,32 +1,40 @@
 ---
-layout: default
+layout: base
 title: Thank You!
 short_title: Thanks!
 ---
 
-<header class="px-6">
-  {% render "nav", color: "black", class: "sm:h-8 h-6", collections: collections %}
-</header>
+<main class="flex flex-col">
+  <header class="px-6">
+    {% render "nav", color: "black", class: "sm:h-8 h-6", collections: collections %}
+  </header>
 
-<section class="sm:mt-8 mt-4 lg:mx-8 mx-4 text-gray-800 pb-10">
-  <div class="flex mb-12">
-    <h1 class="md:text-8xl sm:text-5xl text-4xl tracking-wide font-sans italic font-bold mx-auto">Thank you!</h1>
-  </div>
+  <section class="sm:mt-8 mt-4 lg:mx-8 mx-4 text-gray-800 pb-10">
+    <div class="flex mb-12">
+      <h1 class="md:text-8xl sm:text-5xl text-4xl tracking-wide font-sans italic font-bold mx-auto">Thank you!</h1>
+    </div>
 
-  <div class="flex content-center justify-center md:flex-row flex-col">
-    <div class="md:w-1/3 w-full">
-      <img class="block w-full" src="IMAGE_URL"?tr=w-300" alt="Purchased image"></img>
+    <div class="flex md:flex-row flex-col max-w-[2000px] m-auto">
+      <div class="md:w-1/3 w-full">
+        <img class="block w-full" src="IMAGE_URL"?tr=w-600" alt="Purchased image"></img>
+      </div>
+      <div class="md:ml-6 md:w-2/3 flex justify-between flex-col w-full xl:text-3xl sm:text-2xl text-xl md:text-left text-justify font-normal antialiased tracking-wide xl:leading-10">
+        <p class="md:mt-2 mt-8">
+        Thanks CUSTOMER_NAME! Your PRODUCT_NAME is processing! You'll receive an email within 3 days
+        with the shipping status. I appreciate your support and I'm stoked you
+        loved this photo enough to buy a print. If you need a frame to go along
+        with the photo, check out <a class="hover:underline" href="https://www.framebridge.com/">FrameBridge</a>.
+        </p>
+        <div>
+          <h3 class="font-bold italic mt-12 xl:text-4xl sm:text-3xl text-2xl mt-8 mb-3">Want to get in touch? He'd love to hear from you!</h3>
+          <ul>
+            <li>Fill out the form below.</li>
+            <li>Email him at <a class="hover:underline font-bold" href="mailto:tony@tonywithasony.com">tony@tonywithasony.com</a>.</li>
+            <li>DM him on Social Media. <div class="inline-flex">{% render "social" %}</div></li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="md:ml-6 md:w-2/3 w-full xl:text-3xl sm:text-2xl text-xl md:text-left text-justify font-normal antialiased tracking-wide xl:leading-10">
-      <p class="md:mt-2 mt-8">
-        OBJECT_DATA
-      </p>
-      <h3 class="font-bold italic mt-8 xl:text-4xl sm:text-3xl text-2xl mt-8 mb-3">Want to get in touch? He'd love to hear from you!</h3>
-      <ul>
-        <li>Fill out the form below.</li>
-        <li>Email him at <a class="hover:underline font-bold" href="mailto:tony@tonywithasony.com">tony@tonywithasony.com</a>.</li>
-        <li>DM him on Social Media. <div class="inline-flex">{% render "social" %}</div></li>
-      </ul>
-    </div>
-  </div>
-</section>
+  </section>
+</main>
+{% render "footer" %}
