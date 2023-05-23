@@ -13,8 +13,7 @@ export default async (request, context) => {
 
     const session = await stripe.checkout.sessions.retrieve(url.searchParams.get("session_id"));
     const customer = session["customer_details"];
-    const lineItems = await stripe.checkout.sessions.listLineItems(url.searchParams.get("session_id"));
-    const product = await stripe.products.retrieve(lineItems.data[0].price.product);
+    const metadata = session.metadata;
 
     const response = await context.next();
     const page = await response.text();
@@ -23,8 +22,8 @@ export default async (request, context) => {
     const productRegex = /PRODUCT_NAME/i;
     const customerRegex = /CUSTOMER_NAME/i;
 
-    const imagePage = page.replace(imageRegex, product.images[0]);
-    const productPage = imagePage.replace(productRegex, product.name);
+    const imagePage = page.replace(imageRegex, metadata.image_url);
+    const productPage = imagePage.replace(productRegex, metadata.name);
     const updatedPage = productPage.replace(customerRegex, customer.name);
 
     return new Response(updatedPage, response);
