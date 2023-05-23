@@ -49,7 +49,22 @@ exports.handler = async function (event, context) {
     success_url: 'https://tonywithasony.com/thankyou?session_id={CHECKOUT_SESSION_ID}',
     shipping_address_collection: {
       allowed_countries: ['US']
-    }
+    },
+    metadata: {
+      image_url: params.image_url,
+      filename: params.filename
+    },
+    custom_fields: [
+      {
+        key: "notes",
+        label: {
+          custom: "Any additional notes or feedback about the photo?",
+          type: "custom"
+        },
+        type: "text",
+        optional: true
+      }
+    ]
   });
 
   return {
