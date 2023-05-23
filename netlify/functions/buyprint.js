@@ -51,6 +51,7 @@ exports.handler = async function (event, context) {
       allowed_countries: ['US']
     },
     metadata: {
+      name: params.product + ' Print',
       image_url: params.image_url,
       filename: params.filename
     },
