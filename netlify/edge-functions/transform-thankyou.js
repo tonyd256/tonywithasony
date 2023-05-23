@@ -12,7 +12,7 @@ export default async (request, context) => {
     }
 
     const session = await stripe.checkout.sessions.retrieve(url.searchParams.get("session_id"));
-    const customer = session["customer_details"];
+    const customer = session["customer_details"] || {name: "Valued Customer"};
     const metadata = session.metadata;
 
     const response = await context.next();
