@@ -54,7 +54,7 @@ sitemapPriority: 1.0
     <div class="masonry-col masonry-col--4"></div>
 
     {% assign recents = collections.project | reverse %}
-    {% for project in recents limit: 7 %}
+    {% for project in recents limit: 10 %}
       {% render "masonry-item", project: project %}
     {% endfor %}
   </div>
