@@ -1,7 +1,12 @@
 [
   {
+    "title": "Portfolio Website",
+    "url": "/",
+    "type": "link"
+  },
+  {
     "title": "Trail Shoe Reviews by David and Tony",
-    "url": "https://www.youtube.com/playlist?list=PL9T1pYHaS7g4z76DKoa-ckbX0tdvyEHSK",
+  t  "url": "https://www.youtube.com/playlist?list=PL9T1pYHaS7g4z76DKoa-ckbX0tdvyEHSK",
     "type": "video"
   },
   {
@@ -52,11 +57,6 @@
   {
     "title": "Subscribe for fun emails!",
     "url": "https://omniform1.com/signup/v1/62698ec94804f91a779784af_6269d4ae1f20a454c9f67022.html",
-    "type": "link"
-  },
-  {
-    "title": "Portfolio Website",
-    "url": "/",
     "type": "link"
   }
 ]
