@@ -1,2 +1,7 @@
+User-agent: Google-Extended
+Disallow: /
+
 User-agent: *
+Allow: /
+
 Sitemap: https://tonywithasony.com/sitemap.xml
