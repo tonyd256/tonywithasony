@@ -1,0 +1,4 @@
+[[headers]]
+  for = "/*.vcf"
+  [headers.value]
+    content-type = "text/vcard"
