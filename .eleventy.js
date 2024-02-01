@@ -4,6 +4,7 @@ const site = require('./_data/site.json');
 module.exports = config => {
   config.addPassthroughCopy({ "public": "/" });
   config.addPassthroughCopy({ "_js": "/js" });
+  config.addPassthroughCopy({ "admin/config.yml": "admin/config.yml" });
 
   config.addFilter('dateForSitemap', function (date) {
     return format(date, 'yyyy-MM-dd');
