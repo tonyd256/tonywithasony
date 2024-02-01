@@ -3,12 +3,12 @@ backend:
   branch: main
 
 media_folder: "public/images/uploads"
-public_folder: "/images/uploads"
+public_folder: "images/uploads"
 
 collections:
   - name: "blog"
     label: "Blog"
-    folder: "_posts/blog"
+    folder: "_posts"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
