@@ -6,7 +6,7 @@ module.exports = {
     fontFamily: {
       'sans': ['Lato', 'Helvetica Neue', 'Helvetica', 'sans-serif'],
       'serif': ['Merriweather', 'serif'],
-      'display': ['Permanent Marker']
+      'display': ['Lato']
     },
     extend: {
       keyframes: {

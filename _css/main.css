@@ -80,3 +80,7 @@ video.video-item {
 a {
   -webkit-tap-highlight-color: transparent;
 }
+
+.invert {
+  filter: invert(100%);
+}
