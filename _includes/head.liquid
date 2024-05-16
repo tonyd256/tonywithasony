@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   {% render "seo", page: page, site: site, title: title, description: description, url: url, date: date, photo_url: photo_url %}
   {% render "icons" %}
-  <link rel="canonical" href="{{ page.url }}" />
+  <link rel="canonical" href="{{ page.url | absolute_url }}" />
 
   <link rel="stylesheet" type="text/css" href="/css/main.css" />
 
