@@ -3,6 +3,8 @@ require('dotenv').config();
 
 export default async (req, context) => {
   try {
+    console.dir(req, { depth: null });
+    console.dir(context, { depth: null });
     if (req.body.Type === "SubscriptionConfirmation") {
       const client = new SNSClient({
         credentials: {
