@@ -3,7 +3,7 @@ require('dotenv').config();
 
 export default async (req, context) => {
   try {
-    const data = JSON.parse(req.body);
+    const data = await req.json();
     console.dir(data, { depth: null });
 
     if (req.headers.get("x-amz-sns-message-type") === "SubscriptionConfirmation") {
@@ -25,6 +25,6 @@ export default async (req, context) => {
 
   } catch (error) {
     console.error(error);
-    return Response.json({ error: error.msg }, { status: 500 });
+    return Response.json({ error: "unknown error" }, { status: 500 });
   }
 }
