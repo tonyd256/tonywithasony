@@ -1,4 +1,12 @@
 [[headers]]
-  for = "/*.vcf"
+for = "/*.vcf"
+
   [headers.values]
-    Content-Type = "text/x-vcard"
+  Content-Type = "text/x-vcard"
+
+[[redirects]]
+from = "/gallery/:gallery/"
+to = "/.netlify/functions/dynamic"
+status = 200
+force = true
+_generated_by_eleventy_serverless = "dynamic"

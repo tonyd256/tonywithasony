@@ -5,7 +5,7 @@ eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  {% for item in collections.all %}{% if item.url contains "404" or item.url contains "thankyou" %}{% else %}
+  {% for item in collections.all %}{% if item.url contains "404" or item.url contains "thankyou" or item.url contains "galleries" %}{% else %}
     <url>
       <loc>{{ item.url | absolute_url }}</loc>
       <lastmod>{{ item.date | dateForSitemap }}</lastmod>

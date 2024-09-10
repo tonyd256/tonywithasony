@@ -41,3 +41,6 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
+
+netlify/functions/dynamic/*
+!netlify/functions/dynamic/index.js

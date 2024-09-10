@@ -1,5 +1,6 @@
 const format = require('date-fns/format');
 const site = require('./_data/site.json');
+const { EleventyServerlessBundlerPlugin } = require("@11ty/eleventy");
 
 module.exports = config => {
   config.addPassthroughCopy({ "public": "/" });
@@ -17,6 +18,12 @@ module.exports = config => {
 
   config.addFilter("keys", obj => Object.keys(obj));
   config.addFilter("log", obj => console.log(obj));
+
+  config.addPlugin(EleventyServerlessBundlerPlugin, {
+    name: "dynamic",
+    functionsDir: "./netlify/functions/",
+    copyEnabled: false,
+  });
 
   let markdownIt = require("markdown-it");
   config.setLibrary("md", markdownIt({

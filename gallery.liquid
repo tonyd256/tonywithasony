@@ -1,0 +1,70 @@
+---
+pagination:
+  data: galleries
+  size: 1
+  serverless: eleventy.serverless.path.gallery
+permalink:
+  dynamic: /gallery/:gallery/
+layout: gallery
+---
+
+{% for gall in pagination.items, limit: 1 %}
+  {% assign galleryName = galleries[gall].name %}
+  {% assign galleryHero = galleries[gall].images[0] %}
+
+  <header class="h-100 w-100">
+    <img class="w-full" loading="lazy" srcset="{{ galleryHero.url }}?tr=w-400, {{ galleryHero.url }}?tr=w-800 2x" src="{{ galleryHero.url }}?tr=w-800" alt="Hero Image for {{ galleryName }}"></img>
+  </header>
+
+  <div class="tabs">
+    <h3 class="title">{{ galleryName }}</h3>
+    <div role="tablist" aria-labelledby="tablist-1" class="automatic">
+      {% for alb in galleries[gall].albums %}
+        {% assign album = alb[1] %}
+
+        <button id="tab-{{ album.name | slugify }}" type="button" role="tab" aria-selected="true" aria-controls="tabpanel-{{ album.name | slugify }}">
+          <span class="focus">{{ album.name }}</span>
+        </button>
+      {% endfor %}
+    </div>
+    {% for alb in galleries[gall].albums %}
+      {% assign album = alb[1] %}
+
+      <div id="tabpanel-{{ album.name | slugify }}" role="tabpanel" tabindex="0" aria-labelledby="tab-{{ album.name | slugify }}" class="is-hidden">
+        <div class="flex flex-col items-center mx-5">
+          <div class="masonry">
+            <div class="masonry-col masonry-col--1 mr-1"></div>
+            <div class="masonry-col masonry-col--2 mx-1"></div>
+            <div class="masonry-col masonry-col--3 mx-1"></div>
+            <div class="masonry-col masonry-col--4 mx-1"></div>
+            <div class="masonry-col masonry-col--5 mx-1"></div>
+            <div class="masonry-col masonry-col--6 mx-1"></div>
+            <div class="masonry-col masonry-col--7 ml-1"></div>
+
+            {% for item in album.images %}
+              <div class="masonry-item mb-2" onClick="javascipt:share('{{item.url}}')">
+                <img class="h-auto max-w-full lazyload" width="500px" height="auto" src="{{ item.url }}?tr=w-500,q-10,bl-30" data-srcset="{{ item.url }}?tr=w-500 500w, {{ item.url }}?tr=w-1000 1000w" data-src="{{ item.url }}?tr=w-1000" alt="Image for {{ album.name }}"></img>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endfor %}
+
+<script>
+
+  function share(url) {
+    if (navigator.canShare && navigator.canShare({url})) {
+      navigator.share({url});
+    } else {
+      const tmp = document.createElement("a");
+      tmp.href = url;
+      tmp.download = "file";
+      tmp.click();
+      tmp.remove();
+    }
+  }
+</script>
+<script src="/js/lazysizes.min.js" async></script>

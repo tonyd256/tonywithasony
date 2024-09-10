@@ -73,8 +73,23 @@ video.video-item {
 }
 
 /* 4 columns at large size */
-@media ( min-width: 1800px ) {
+@media ( min-width: 1600px ) {
   .masonry-col--4 { display: block; } /* show column 4 */
+}
+
+/* 4 columns at large size */
+@media ( min-width: 2000px ) {
+  .masonry-col--5 { display: block; } /* show column 4 */
+}
+
+/* 4 columns at large size */
+@media ( min-width: 2400px ) {
+  .masonry-col--6 { display: block; } /* show column 4 */
+}
+
+/* 4 columns at large size */
+@media ( min-width: 2800px ) {
+  .masonry-col--7 { display: block; } /* show column 4 */
 }
 
 a {
