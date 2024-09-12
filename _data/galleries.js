@@ -1,5 +1,5 @@
 const { AssetCache } = require("@11ty/eleventy-fetch");
-const { S3Client, ListObjectsV2Command, HeadObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
 const _ = require('lodash');
 require('dotenv').config();
 
@@ -16,7 +16,7 @@ const client = new S3Client({
 
 async function getImagesByAlbum() {
   try {
-    let assets = new AssetCache("imagekit_galleries");
+    let assets = new AssetCache("wasabi_galleries");
 
     if (assets.isCacheValid("1d")) {
       return assets.getCachedValue();

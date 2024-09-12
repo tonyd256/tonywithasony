@@ -15,14 +15,5 @@ video_url: "https://player.vimeo.com/progressive_redirect/playback/765341541/ren
     </p>
   </div>
 
-  <div class="masonry">
-    <div class="masonry-col masonry-col--1"></div>
-    <div class="masonry-col masonry-col--2"></div>
-    <div class="masonry-col masonry-col--3"></div>
-    <div class="masonry-col masonry-col--4"></div>
-
-    {% for project in collections.race reversed %}
-      {% render "masonry-item", project: project %}
-    {% endfor %}
-  </div>
+  {% render "page-gallery", projects: collections.race %}
 </section>

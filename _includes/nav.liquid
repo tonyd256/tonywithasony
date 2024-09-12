@@ -6,7 +6,7 @@
     {% assign nav_items = collections.navpage | sort: "data.order" %}
     {% for item in nav_items %}
       <a class="px-3 py-2 inline md:hidden" href="{{ item.url }}">{{ item.data.short_title }}</a>
-      <a class="px-3 py-2 hover:text-{{ color }} hover:underline hover:scale-105 transition-transform md:inline hidden" href="{{ item.url }}">{{ item.data.title }}</a>
+      <a class="px-3 py-2 hover:text-{{ color }} {% if page.url == item.url %}underline{% else %}hover:underline{% endif %} hover:scale-105 transition-transform md:inline hidden" href="{{ item.url }}">{{ item.data.title }}</a>
     {% endfor %}
   </div>
 </nav>

@@ -1,0 +1,10 @@
+<div class="masonry flex">
+  <div class="masonry-col masonry-col--1 mr-1 flex-1"></div>
+  <div class="masonry-col masonry-col--2 mx-1 flex-1 hidden md:block"></div>
+  <div class="masonry-col masonry-col--3 mx-1 flex-1 hidden lg:block"></div>
+  <div class="masonry-col masonry-col--4 mx-1 flex-1 hidden 2xl:block"></div>
+
+  {% for project in projects reversed %}
+    {% render "masonry-item", project: project %}
+  {% endfor %}
+</div>
