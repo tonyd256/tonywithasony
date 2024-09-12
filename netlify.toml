@@ -4,9 +4,15 @@ for = "/*.vcf"
   [headers.values]
   Content-Type = "text/x-vcard"
 
+[build.environment]
+NETLIFY_IMAGE_CDN = "true"
+
 [[redirects]]
 from = "/gallery/:gallery/"
 to = "/.netlify/functions/dynamic"
 status = 200
 force = true
 _generated_by_eleventy_serverless = "dynamic"
+
+[images]
+remote_images = ["https://ik.imagekit.io/tony/.*"]

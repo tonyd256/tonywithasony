@@ -1,7 +1,7 @@
 const { SNSClient, ConfirmSubscriptionCommand } = require("@aws-sdk/client-sns");
 require('dotenv').config();
 
-export default async (req, context) => {
+async function handler(req, context) {
   try {
     const data = await req.json();
     console.dir(data, { depth: null });
@@ -28,3 +28,5 @@ export default async (req, context) => {
     return Response.json({ error: "unknown error" }, { status: 500 });
   }
 }
+
+exports.handler = handler;
