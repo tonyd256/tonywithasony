@@ -9,6 +9,10 @@ module.exports = {
       'display': ['Lato']
     },
     extend: {
+      screens: {
+        '3xl': '2000px',
+        '4xl': '2500px'
+      },
       keyframes: {
         'tv-close': {
           '0%': {
@@ -19,7 +23,7 @@ module.exports = {
             background: 'transparent'
           },
           '100%': {
-            transform: 'scale(4,.05)',
+            transform: 'scale(6,.05)',
             background: 'black'
           }
         },
