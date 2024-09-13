@@ -23,7 +23,27 @@ module.exports = config => {
     name: "dynamic",
     functionsDir: "./netlify/functions/",
     copyEnabled: false,
+    singleTemplateScope: false,
+    copy: [".cache/", "_layouts"],
+    config: function (config) {
+      console.log("here2");
+      config.addFilter('absolute_url', function (value) {
+        const url = process.env.ELEVENTY_ENV === 'production' ? site.url : 'http://localhost:8080';
+        return new URL(value, url).href;
+      });
+
+      config.addFilter("keys", obj => Object.keys(obj));
+      config.addFilter("log", obj => console.log(obj));
+
+      return {
+        dir: {
+          layouts: "_layouts"
+        }
+      };
+    }
   });
+  config.dataFilterSelectors.add("page");
+  config.dataFilterSelectors.add("galleries");
 
   let markdownIt = require("markdown-it");
   config.setLibrary("md", markdownIt({

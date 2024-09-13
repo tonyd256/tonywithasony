@@ -16,3 +16,6 @@ _generated_by_eleventy_serverless = "dynamic"
 
 [images]
 remote_images = ["https://ik.imagekit.io/tony/.*"]
+
+[dev]
+command = "yarn dev"

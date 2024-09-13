@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  {% render "head", page: page, site: site, title: title, url: url, date: date, description: description, photo_url: photo_url %}
+  <body class="relative">
+    {{ content }}
+
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function (user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function () {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

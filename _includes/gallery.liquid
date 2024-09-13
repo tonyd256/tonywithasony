@@ -1,18 +1,11 @@
-<div class="masonry flex">
-  <div class="masonry-col masonry-col--1 mr-1 flex-1"></div>
-  <div class="masonry-col masonry-col--2 mx-1 flex-1 hidden md:block"></div>
-  <div class="masonry-col masonry-col--3 mx-1 flex-1 hidden lg:block"></div>
-  <div class="masonry-col masonry-col--4 mx-1 flex-1 hidden 2xl:block"></div>
-  <div class="masonry-col masonry-col--5 mx-1 flex-1 hidden 3xl:block"></div>
-  <div class="masonry-col masonry-col--6 mx-1 flex-1 hidden 4xl:block"></div>
+---
+layout: default
+---
 
-  {% for item in items %}
-    <div class="masonry-item mb-2">
-      {% if item.mime contains "video" %}
-        <video class="video-item w-full" playsinline controls src="{{ item.url }}?tr=w-1000"></video>
-      {% else %}
-        <img class="w-full" srcset="{{ item.url }}?tr=w-500, {{ item.url }}?tr=w-1000 2x" src="{{ item.url }}?tr=w-1000" alt="Image for {{ client }}"></img>
-      {% endif %}
-    </div>
-  {% endfor %}
-</div>
+<header class="px-6">
+  {% render "nav", color: "black", class: "sm:h-8 h-6", collections: collections %}
+</header>
+
+<section class="flex items-center flex-col w-full mb-10">
+  {{ content }}
+</section>
