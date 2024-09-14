@@ -2,77 +2,74 @@
 pagination:
   data: galleries
   size: 1
-  serverless: eleventy.serverless.path.gallery
-permalink:
-  dynamic: /gallery/:gallery/
+  alias: gallery
+permalink: "/gallery/{{ gallery.name | slugify }}/"
 layout: gallery
 ---
 
-{% for gall in pagination.items, limit: 1 %}
-  {% assign galleryName = galleries[gall].name %}
-  {% assign galleryHero = galleries[gall].images[0] %}
+{% assign galleryName = gallery.name %}
+{% assign galleryHero = gallery.images[0] %}
 
-  <header class="h-100 w-100">
-    <img class="w-full" loading="lazy" srcset="{{ galleryHero.url }}?tr=w-400, {{ galleryHero.url }}?tr=w-800 2x" src="{{ galleryHero.url }}?tr=w-800" alt="Hero Image for {{ galleryName }}"></img>
-  </header>
+<header class="h-100 w-100">
+  <img class="w-full" loading="lazy" srcset="{{ galleryHero.url }}?tr=w-400, {{ galleryHero.url }}?tr=w-800 2x" src="{{ galleryHero.url }}?tr=w-800" alt="Hero Image for {{ galleryName }}"></img>
+</header>
 
-  <div class="tabs w-full">
-    <h1 class="xl:text-8xl md:text-5xl text-5xl text-slate-100 tracking-wider leading-snug font-sans font-bold italic text-center animate-appear-quicker opacity-0 flex sm:block flex-col">
-      {{ galleryName }}
-    </h1>
-    <div role="tablist" aria-labelledby="tablist-1" class="automatic xl:py-16 md:py-10 py-8 w-full">
-      {% for alb in galleries[gall].albums %}
-        {% assign album = alb[1] %}
-        <p class="lg:text-5xl w-full text-3xl text-slate-900 tracking-wider leading-snug font-sans font-bold italic text-center">
-          <button id="tab-{{ album.name | slugify }}" type="button" role="tab" aria-selected="true" aria-controls="tabpanel-{{ album.name | slugify }}">
-            <span class="focus">{{ album.name }}</span>
-          </button>
-        </p>
-      {% endfor %}
-    </div>
-    {% for alb in galleries[gall].albums %}
+<div class="tabs w-full">
+  <h1 class="xl:text-8xl md:text-5xl text-5xl text-slate-100 tracking-wider leading-snug font-sans font-bold italic text-center animate-appear-quicker opacity-0 flex sm:block flex-col">
+    {{ galleryName }}
+  </h1>
+  <div role="tablist" aria-labelledby="tablist-1" class="automatic xl:py-16 md:py-10 py-8 w-full">
+    {% for alb in gallery.albums %}
       {% assign album = alb[1] %}
-
-      <div id="tabpanel-{{ album.name | slugify }}" role="tabpanel" tabindex="0" aria-labelledby="tab-{{ album.name | slugify }}" class="is-hidden">
-        <div class="flex flex-col items-center mx-5">
-          <div class="masonry flex">
-            <div class="masonry-col masonry-col--1 mr-1 flex-1"></div>
-            <div class="masonry-col masonry-col--2 mx-1 flex-1 hidden md:block"></div>
-            <div class="masonry-col masonry-col--3 mx-1 flex-1 hidden lg:block"></div>
-            <div class="masonry-col masonry-col--4 mx-1 flex-1 hidden 2xl:block"></div>
-            <div class="masonry-col masonry-col--5 mx-1 flex-1 hidden 3xl:block"></div>
-            <div class="masonry-col masonry-col--6 mx-1 flex-1 hidden 4xl:block"></div>
-
-            {% for item in album.images %}
-              <div class="masonry-item mb-2 relative">
-                <div class="w-full h-full flex flex-col justify-end bg-fade absolute md:opacity-0 opacity-100 hover:opacity-100 transition-all">
-                  <div class="flex justify-end text-gray-50 mb-2">
-                    <button class="w-6 mx-2 opacity-60 hover:opacity-100 download-link" data-url="/.netlify/images?url={{ item.url }}" data-download="{{ item.url | split: '/' | last }}">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                      </svg>
-                    </button>
-                    <!-- <a class="w&#45;6 mx&#45;2 opacity&#45;60 hover:opacity&#45;100" href="/.netlify/images?url={{ item.url }}" download="{{ item.url | split: '/' | last }}"> -->
-                    <!--   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke&#45;width="1.5" stroke="currentColor" class="size&#45;6"> -->
-                    <!--     <path stroke&#45;linecap="round" stroke&#45;linejoin="round" d="M21 8.25c0&#45;2.485&#45;2.099&#45;4.5&#45;4.688&#45;4.5&#45;1.935 0&#45;3.597 1.126&#45;4.312 2.733&#45;.715&#45;1.607&#45;2.377&#45;2.733&#45;4.313&#45;2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9&#45;4.78 9&#45;12Z" /> -->
-                    <!--   </svg> -->
-                    <!-- </a> -->
-                    <!-- <a class="w&#45;6 ml&#45;2 mr&#45;4 opacity&#45;60 hover:opacity&#45;100" href="/.netlify/images?url={{ item.url }}" download="{{ item.url | split: '/' | last }}"> -->
-                    <!--   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke&#45;width="1.5" stroke="currentColor" class="size&#45;6"> -->
-                    <!--     <path stroke&#45;linecap="round" stroke&#45;linejoin="round" d="M8.625 12a.375.375 0 1 1&#45;.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1&#45;.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1&#45;.75 0 .375.375 0 0 1 .75 0Zm0 0h&#45;.375M21 12a9 9 0 1 1&#45;18 0 9 9 0 0 1 18 0Z" /> -->
-                    <!--   </svg> -->
-                    <!-- </a> -->
-                  </div>
-                </div>
-                  <img class="h-auto max-w-full lazyload" width="500px" height="auto" src="{{ item.url }}?tr=w-500,q-10,bl-30" data-srcset="{{ item.url }}?tr=w-500 500w, {{ item.url }}?tr=w-1000 1000w" data-src="{{ item.url }}?tr=w-1000" alt="Image for {{ album.name }}"></img>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
+      <p class="lg:text-5xl w-full text-3xl text-slate-900 tracking-wider leading-snug font-sans font-bold italic text-center">
+        <button id="tab-{{ album.name | slugify }}" type="button" role="tab" aria-selected="true" aria-controls="tabpanel-{{ album.name | slugify }}">
+          <span class="focus">{{ album.name }}</span>
+        </button>
+      </p>
     {% endfor %}
   </div>
-{% endfor %}
+  {% for alb in gallery.albums %}
+    {% assign album = alb[1] %}
+
+    <div id="tabpanel-{{ album.name | slugify }}" role="tabpanel" tabindex="0" aria-labelledby="tab-{{ album.name | slugify }}" class="is-hidden">
+      <div class="flex flex-col items-center mx-5">
+        <div class="masonry flex">
+          <div class="masonry-col masonry-col--1 mr-1 flex-1"></div>
+          <div class="masonry-col masonry-col--2 mx-1 flex-1 hidden md:block"></div>
+          <div class="masonry-col masonry-col--3 mx-1 flex-1 hidden lg:block"></div>
+          <div class="masonry-col masonry-col--4 mx-1 flex-1 hidden 2xl:block"></div>
+          <div class="masonry-col masonry-col--5 mx-1 flex-1 hidden 3xl:block"></div>
+          <div class="masonry-col masonry-col--6 mx-1 flex-1 hidden 4xl:block"></div>
+
+          {% for item in album.images %}
+            <div class="masonry-item mb-2 relative">
+              <div class="w-full h-full flex flex-col justify-end bg-fade absolute md:opacity-0 opacity-100 hover:opacity-100 transition-all">
+                <div class="flex justify-end text-gray-50 mb-2">
+                  <button class="w-6 mx-2 opacity-60 hover:opacity-100 download-link" data-url="/.netlify/images?url={{ item.url }}" data-download="{{ item.url | split: '/' | last }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+                  </button>
+                  <!-- <a class="w&#45;6 mx&#45;2 opacity&#45;60 hover:opacity&#45;100" href="/.netlify/images?url={{ item.url }}" download="{{ item.url | split: '/' | last }}"> -->
+                  <!--   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke&#45;width="1.5" stroke="currentColor" class="size&#45;6"> -->
+                  <!--     <path stroke&#45;linecap="round" stroke&#45;linejoin="round" d="M21 8.25c0&#45;2.485&#45;2.099&#45;4.5&#45;4.688&#45;4.5&#45;1.935 0&#45;3.597 1.126&#45;4.312 2.733&#45;.715&#45;1.607&#45;2.377&#45;2.733&#45;4.313&#45;2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9&#45;4.78 9&#45;12Z" /> -->
+                  <!--   </svg> -->
+                  <!-- </a> -->
+                  <!-- <a class="w&#45;6 ml&#45;2 mr&#45;4 opacity&#45;60 hover:opacity&#45;100" href="/.netlify/images?url={{ item.url }}" download="{{ item.url | split: '/' | last }}"> -->
+                  <!--   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke&#45;width="1.5" stroke="currentColor" class="size&#45;6"> -->
+                  <!--     <path stroke&#45;linecap="round" stroke&#45;linejoin="round" d="M8.625 12a.375.375 0 1 1&#45;.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1&#45;.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1&#45;.75 0 .375.375 0 0 1 .75 0Zm0 0h&#45;.375M21 12a9 9 0 1 1&#45;18 0 9 9 0 0 1 18 0Z" /> -->
+                  <!--   </svg> -->
+                  <!-- </a> -->
+                </div>
+              </div>
+                <img class="h-auto max-w-full lazyload" width="500px" height="auto" src="{{ item.url }}?tr=w-500,q-10,bl-30" data-srcset="{{ item.url }}?tr=w-500 500w, {{ item.url }}?tr=w-1000 1000w" data-src="{{ item.url }}?tr=w-1000" alt="Image for {{ album.name }}"></img>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
 
 <script>
   window.onload = function() {

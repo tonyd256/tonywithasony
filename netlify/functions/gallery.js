@@ -1,4 +1,3 @@
-const { AssetCache } = require("@11ty/eleventy-fetch");
 const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
 const _ = require('lodash');
 require('dotenv').config();
@@ -14,13 +13,11 @@ const client = new S3Client({
   region: "us-west-1"
 });
 
-async function getImagesByAlbum() {
+async function handler(req, context) {
   try {
-    let assets = new AssetCache("wasabi_galleries");
-
-    if (assets.isCacheValid("1d")) {
-      return assets.getCachedValue();
-    }
+    const slug = req.queryStringParameters.slug;
+    if (!slug)
+      return { statusCode: 404 };
 
     const { Contents } = await client.send(new ListObjectsV2Command({
       Bucket: "website-galleries",
@@ -36,6 +33,8 @@ async function getImagesByAlbum() {
       var splits = path.split("/");
       if (splits[splits.length - 1] === '')
         splits = splits.slice(0, -1);
+
+      if (_.kebabCase(splits[1]) !== slug) return;
 
       switch (splits.length) {
         case 2:
@@ -60,12 +59,10 @@ async function getImagesByAlbum() {
       }
     });
 
-    albums = _.values(albums);
-
-    await assets.save(albums, "json");
-    return albums;
+    return { body: JSON.stringify(albums[slug]), statusCode: 200 };
   } catch (e) {
     console.error(e);
+    return { body: JSON.stringify({ error: "unknown error" }), statusCode: 500 };
   }
 }
 
@@ -77,6 +74,4 @@ function newImage(name, path) {
   };
 }
 
-module.exports = async function() {
-  return await getImagesByAlbum();
-}
+exports.handler = handler;
