@@ -4,9 +4,9 @@ module.exports = {
   content: ['_site/**/*.html', '**/*.liquid', '**/*.html', '**/*.md'],
   theme: {
     fontFamily: {
-      'sans': ['Lato', 'Helvetica Neue', 'Helvetica', 'sans-serif'],
-      'serif': ['Merriweather', 'serif'],
-      'display': ['Lato']
+      'sans': ['LatoLatinWeb', 'Helvetica Neue', 'Helvetica', 'system-ui', 'sans-serif'],
+      'serif': ['Merriweather', 'system-ui', 'serif'],
+      'display': ['LatoLatinWeb']
     },
     extend: {
       screens: {

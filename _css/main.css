@@ -4,9 +4,54 @@
 @import "./imports/_films.css";
 @import "./imports/_post.css";
 
+/* Webfont: LatoLatin-Black */@font-face {
+    font-family: 'LatoLatinWeb';
+    src: url('/fonts/LatoLatin-Black.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 900;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+/* Webfont: LatoLatin-Bold */@font-face {
+    font-family: 'LatoLatinWeb';
+    src: url('/fonts/LatoLatin-Bold.woff2') format('woff2');
+    font-style: normal;
+    font-weight: bold;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+/* Webfont: LatoLatin-BoldItalic */@font-face {
+    font-family: 'LatoLatinWeb';
+    src: url('/fonts/LatoLatin-BoldItalic.woff2') format('woff2');
+    font-style: italic;
+    font-weight: bold;
+    font-display: swap;
+    text-rendering: optimizeLegibility;
+}
+
+/* Webfont: LatoLatin-Italic */@font-face {
+    font-family: 'LatoLatinWeb';
+    src: url('/fonts/LatoLatin-Italic.woff2') format('woff2');
+    font-style: italic;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
+/* Webfont: LatoLatin-Regular */@font-face {
+    font-family: 'LatoLatinWeb';
+    src: url('/fonts/LatoLatin-Regular.woff2') format('woff2');
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+    font-display: swap;
+}
+
 @layer base {
   html {
-    font-family: Merriweather, system-ui, serif;
+    @apply font-sans;
   }
 }
 
@@ -48,7 +93,6 @@ video.header {
 video.video-item {
   height: auto;
   min-width: 0;
-
 }
 
 a {
