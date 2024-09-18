@@ -18,10 +18,10 @@ layout: gallery
   <h1 class="xl:text-8xl md:text-5xl text-5xl text-slate-100 tracking-wider leading-snug font-sans font-bold italic text-center animate-appear-quicker opacity-0 flex sm:block flex-col">
     {{ galleryName }}
   </h1>
-  <div role="tablist" aria-labelledby="tablist-1" class="automatic xl:py-16 md:py-10 py-8 w-full">
+  <div role="tablist" aria-labelledby="tablist-1" class="automatic xl:py-6 md:py-5 py-4 px-4 w-full flex">
     {% for alb in gallery.albums %}
       {% assign album = alb[1] %}
-      <p class="lg:text-5xl w-full text-3xl text-slate-900 tracking-wider leading-snug font-sans font-bold italic text-center">
+      <p class="lg:text-3xl text-2xl text-slate-900 tracking-wider leading-snug font-sans font-bold">
         <button id="tab-{{ album.name | slugify }}" type="button" role="tab" aria-selected="true" aria-controls="tabpanel-{{ album.name | slugify }}">
           <span class="focus">{{ album.name }}</span>
         </button>

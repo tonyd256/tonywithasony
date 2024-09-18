@@ -3,8 +3,12 @@ require('dotenv').config();
 
 async function handler(req, context) {
   try {
-    const data = await req.json();
-    console.dir(data, { depth: null });
+    if (req.json) {
+      const data = await req.json();
+      console.dir(data, { depth: null });
+    } else {
+      console.dir(req.headers, { depth: null });
+    }
 
     if (req.headers.get("x-amz-sns-message-type") === "SubscriptionConfirmation") {
       const client = new SNSClient({
