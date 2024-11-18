@@ -43,7 +43,7 @@ sitemapPriority: 1.0
 <section>
   <div class="xl:py-16 md:py-10 py-8 lg:w-3/4 xl:w-2/4 px-4 w-full mx-auto">
     <p class="lg:text-5xl w-full text-3xl text-slate-900 tracking-wider leading-snug font-sans font-bold italic text-center">
-      Recent Work
+      Featured Work
     </p>
   </div>
 
@@ -53,8 +53,8 @@ sitemapPriority: 1.0
     <div class="masonry-col masonry-col--3 mx-1 flex-1 hidden lg:block"></div>
     <div class="masonry-col masonry-col--4 mx-1 flex-1 hidden 2xl:block"></div>
 
-    {% assign recents = collections.project | reverse %}
-    {% for project in recents limit: 10 %}
+    {% assign featured = collections.highlight | reverse %}
+    {% for project in featured limit: 10 %}
       {% render "masonry-item", project: project %}
     {% endfor %}
   </div>
