@@ -1,7 +1,7 @@
 <head>
   <title>{% if title %}{{ title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   {% render "seo", page: page, site: site, title: title, description: description, url: url, date: date, photo_url: photo_url %}
   {% render "icons" %}
   <link rel="canonical" href="{{ page.url | absolute_url }}" />
@@ -18,7 +18,7 @@
   <script defer src="/js/imagesloaded.pkgd.min.js"></script>
   <script defer src="/js/colcade.js"></script>
   <script defer src="/js/index.js"></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <script>(function(d){var s = d.createElement("script");s.setAttribute("data-position", 3);s.setAttribute("data-account", "5gJAZzB5UT");s.setAttribute("src", "https://accessibilityserver.org/widget.js");(d.body || d.head).appendChild(s);})(document)</script><noscript>Please ensure Javascript is enabled for purposes of <a href="https://accessibilityserver.org">website accessibility</a></noscript>
 </head>
