@@ -12,15 +12,3 @@ remote_images = ["https://ik.imagekit.io/tony/.*"]
 
 [dev]
 command = "yarn dev"
-
-[[redirects]]
-  from = "/get-gallery/:gallery"
-  to = "/.netlify/functions/gallery?slug=:gallery"
-  force = true
-  status = 200
-
-[[redirects]]
-  from = "/get-transfer/:code"
-  to = "/.netlify/functions/getTransfer?slug=:code"
-  force = true
-  status = 200

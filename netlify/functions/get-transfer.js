@@ -25,10 +25,10 @@ async function handler(req, context) {
     const cmd = new ListObjectsV2Command(params);
     const { Contents } = await s3Client.send(cmd);
     const vals = _.map(_.map(Contents, "Key"), newImage);
-    return { body: JSON.stringify(vals), statusCode: 200 };
+    return { body: JSON.stringify(vals), headers: { "Content-Type": "application/json" }, statusCode: 200 };
   } catch (err) {
     console.error('Error getting images:', err);
-    return { body: JSON.stringify({ error: "Failed to get images" }), statusCode: 500 };
+    return { body: JSON.stringify({ error: "Failed to get images" }), headers: { "Content-Type": "application/json" }, statusCode: 500 };
   }
 }
 
