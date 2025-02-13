@@ -18,3 +18,9 @@ command = "yarn dev"
   to = "/.netlify/functions/gallery?slug=:gallery"
   force = true
   status = 200
+
+[[redirects]]
+  from = "/get-transfer/:code"
+  to = "/.netlify/functions/gallery?slug=:code"
+  force = true
+  status = 200
