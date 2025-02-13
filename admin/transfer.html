@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer</title>
+
+    <link rel="icon" type="image/png" href="{{ '/images/favicon-16x16.png' | url }}" sizes="16x16" />
+    <link rel="icon" type="image/png" href="{{ '/images/favicon-32x32.png' | url }}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{{ '/images/favicon-96x96.png' | url }}" sizes="96x96" />
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="preload" href="/fonts/LatoLatin-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/LatoLatin-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/LatoLatin-BoldItalic.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/LatoLatin-Italic.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/LatoLatin-Black.woff2" as="font" type="font/woff2" crossorigin>
+
+    <link href="https://releases.transloadit.com/uppy/v4.13.2/uppy.min.css" rel="stylesheet">
+    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  </head>
+  <body>
+    <h1>Upload Files to Backblaze B2</h1>
+    <div class="center">
+      <span id="folder-name"></span>
+      <div id="uppy"></div>
+      <script type="module">
+        import { Uppy, Dashboard, AwsS3 } from "https://releases.transloadit.com/uppy/v4.13.2/uppy.min.mjs";
+
+        const folderName = Array.from(crypto.getRandomValues(new Uint8Array(4)))
+          .map(b => b.toString(16).padStart(2, '0')).join('');
+        document.getElementById("folder-name");
+
+        const uppy = new Uppy()
+          .use(Dashboard, { target: '#uppy', inline: true })
+          .use(AwsS3, {
+            fields: [ ],
+            getUploadParameters(file) {
+              return fetch('/generate-presigned-url', {
+                method: 'POST',
+                headers: {
+                  'content-type': 'application/json',
+                },
+                body: JSON.stringify({
+                  fileName: file.name,
+                  fileType: file.type,
+                  folderName: folderName,
+                })
+              }).then((response) => {
+                return response.json();
+              }).then((data) => {
+                return {
+                  method: 'PUT',
+                  url: data.url,
+                  headers: {
+                    "content-type": "image/jpeg",
+                    "Access-Control-Allow-Origin": "*",
+                  }
+                };
+              });
+            },
+          })
+
+        uppy.on('complete', (result) => {
+          if(result.successful){
+            console.log('Upload complete! We’ve uploaded these files:', result.successful); // if upload succeeds, let's see what we uploaded
+          } else {
+            console.log('Upload error: ', result.failed); // if upload failed, let's see what went wrong
+          }
+        })
+      </script>
+    </div>
+  </body>
+</html>
