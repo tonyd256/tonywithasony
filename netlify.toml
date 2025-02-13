@@ -21,6 +21,6 @@ command = "yarn dev"
 
 [[redirects]]
   from = "/get-transfer/:code"
-  to = "/.netlify/functions/gallery?slug=:code"
+  to = "/.netlify/functions/getTransfer?slug=:code"
   force = true
   status = 200
