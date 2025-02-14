@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
 
-  <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link rel="icon" type="image/png" href="{{ '/images/favicon-16x16.png' | url }}" sizes="16x16" />
+    <link rel="icon" type="image/png" href="{{ '/images/favicon-32x32.png' | url }}" sizes="32x32" />
+    <link rel="icon" type="image/png" href="{{ '/images/favicon-96x96.png' | url }}" sizes="96x96" />
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="preload" href="/fonts/LatoLatin-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/LatoLatin-Bold.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/LatoLatin-BoldItalic.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/LatoLatin-Italic.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/LatoLatin-Black.woff2" as="font" type="font/woff2" crossorigin>
+
+    <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <div data-netlify-identity-menu></div>
-
-  <div data-netlify-identity-button>Login with Netlify Identity</div>
-
+  <div class="h-screen w-screen flex items-center justify-center">
+    <button class="bg-sky-500 hover:bg-sky-200 rounded h-11 text-white w-40" data-netlify-identity-button></button>
+  </div>
   <script>
-    netlifyIdentity.on('login', user => {
-      console.log('login', user)
+    document.addEventListener("DOMContentLoaded", function () {
+      netlifyIdentity.on('login', user => {
+        const params = new URLSearchParams(window.location.search);
+        window.location.href = window.location.origin + params.get("site");
+      });
     });
-
   </script>
 </body>
 </html>

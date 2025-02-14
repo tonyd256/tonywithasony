@@ -20,16 +20,18 @@
     <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
-    <h1>Upload Files to Backblaze B2</h1>
-    <div class="center">
-      <span id="folder-name"></span>
+    <div class="h-screen w-screen flex items-center justify-center flex-col">
+      <h1 class="bold font-sans text-3xl">Upload Files to Transfer</h1>
+      <a class="font-sans text-xl mt-3 mb-5" id="folder-name"></a>
       <div id="uppy"></div>
+
       <script type="module">
         import { Uppy, Dashboard, AwsS3 } from "https://releases.transloadit.com/uppy/v4.13.2/uppy.min.mjs";
 
         const folderName = Array.from(crypto.getRandomValues(new Uint8Array(4)))
           .map(b => b.toString(16).padStart(2, '0')).join('');
-        document.getElementById("folder-name");
+        document.getElementById("folder-name").textContent = "https://tonywithasony.com/gallery/"+folderName;
+        document.getElementById("folder-name").href = "https://tonywithasony.com/gallery/"+folderName;
 
         const uppy = new Uppy()
           .use(Dashboard, { target: '#uppy', inline: true })
@@ -63,6 +65,7 @@
 
         uppy.on('complete', (result) => {
           if(result.successful){
+            // put link in text, add clear button (refresh)
             console.log('Upload complete! We’ve uploaded these files:', result.successful); // if upload succeeds, let's see what we uploaded
           } else {
             console.log('Upload error: ', result.failed); // if upload failed, let's see what went wrong
