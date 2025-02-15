@@ -26,5 +26,7 @@ Disallow: /
 User-agent: *
 Disallow:
 Disallow: /galleries/
+Disallow: /admin/
+Disallow: /transfer/
 
 Sitemap: https://tonywithasony.com/sitemap.xml

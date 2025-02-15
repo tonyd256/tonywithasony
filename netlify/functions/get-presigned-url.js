@@ -1,4 +1,5 @@
-const { S3Client, ListObjectsV2Command } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 require('dotenv').config();
 
 const s3Client = new S3Client({
@@ -12,9 +13,17 @@ const s3Client = new S3Client({
 
 async function handler(req, context) {
   try {
-    const folderName = req.queryStringParameters.folderName;
-    const fileName = req.queryStringParameters.fileName;
-    const fileType = req.queryStringParameters.fileType;
+    const rawNetlifyContext = context.clientContext.custom.netlify;
+    const netlifyContext = Buffer.from(rawNetlifyContext, 'base64').toString('utf-8');
+    const { identity, user } = JSON.parse(netlifyContext);
+
+    if (!identity || !user)
+      return { statusCode: 404 };
+
+    const json = JSON.parse(req.body);
+    const folderName = json.folderName;
+    const fileName = json.fileName;
+    const fileType = json.fileType;
 
     const params = {
       Bucket: process.env.B2_BUCKET_NAME,

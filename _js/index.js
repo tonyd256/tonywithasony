@@ -30,11 +30,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+var masonry;
 function initMasonry() {
   const grid = document.querySelector('.masonry');
   if (!grid) { return; }
 
-  const masonry = new Colcade(grid, {
+  masonry = new Colcade(grid, {
     columns: '.masonry-col',
     items: '.masonry-item'
   });

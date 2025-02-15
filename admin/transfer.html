@@ -28,49 +28,86 @@
       <script type="module">
         import { Uppy, Dashboard, AwsS3 } from "https://releases.transloadit.com/uppy/v4.13.2/uppy.min.mjs";
 
-        const folderName = Array.from(crypto.getRandomValues(new Uint8Array(4)))
-          .map(b => b.toString(16).padStart(2, '0')).join('');
-        document.getElementById("folder-name").textContent = "https://tonywithasony.com/gallery/"+folderName;
-        document.getElementById("folder-name").href = "https://tonywithasony.com/gallery/"+folderName;
+        document.addEventListener("DOMContentLoaded", async function () {
+          netlifyIdentity.on('init', user => {
+            checkAuth();
+          });
+          netlifyIdentity.on('login', user => {
+            netlifyIdentity.close();
+            checkAuth();
+          });
+          netlifyIdentity.on('logout', user => {
+            window.location.href = '/';
+          });
+          netlifyIdentity.on('error', user => {
+            checkAuth();
+          });
+          netlifyIdentity.on('close', user => {
+            checkAuth();
+          });
 
-        const uppy = new Uppy()
-          .use(Dashboard, { target: '#uppy', inline: true })
-          .use(AwsS3, {
-            fields: [ ],
-            getUploadParameters(file) {
-              return fetch('/generate-presigned-url', {
-                method: 'POST',
-                headers: {
-                  'content-type': 'application/json',
-                },
-                body: JSON.stringify({
-                  fileName: file.name,
-                  fileType: file.type,
-                  folderName: folderName,
-                })
-              }).then((response) => {
-                return response.json();
-              }).then((data) => {
-                return {
-                  method: 'PUT',
-                  url: data.url,
-                  headers: {
-                    "content-type": "image/jpeg",
-                    "Access-Control-Allow-Origin": "*",
-                  }
-                };
-              });
-            },
-          })
+          checkAuth();
+        });
 
-        uppy.on('complete', (result) => {
-          if(result.successful){
-            // put link in text, add clear button (refresh)
-            console.log('Upload complete! We’ve uploaded these files:', result.successful); // if upload succeeds, let's see what we uploaded
+        function checkAuth() {
+          const user = netlifyIdentity.currentUser();
+          if (user && user.app_metadata.roles.includes('admin')) {
+            initUppy();
           } else {
-            console.log('Upload error: ', result.failed); // if upload failed, let's see what went wrong
+            netlifyIdentity.open();
           }
-        })
+        }
+
+        var uppy;
+        function initUppy() {
+          if (uppy) return;
+
+          const folderName = Array.from(crypto.getRandomValues(new Uint8Array(4)))
+            .map(b => b.toString(16).padStart(2, '0')).join('');
+          document.getElementById("folder-name").textContent = "https://tonywithasony.com/transfer/?code="+folderName;
+          document.getElementById("folder-name").href = "https://tonywithasony.com/transfer/?code="+folderName;
+
+          uppy = new Uppy()
+            .use(Dashboard, { target: '#uppy', inline: true })
+            .use(AwsS3, {
+              fields: [],
+              getUploadParameters(file) {
+                return netlifyIdentity.currentUser().jwt().then( token => fetch('/.netlify/functions/get-presigned-url', {
+                  method: 'POST',
+                  headers: {
+                    'cache-control': 'no-cache',
+                    'content-type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                  },
+                  body: JSON.stringify({
+                    fileName: file.name,
+                    fileType: file.type,
+                    folderName: folderName,
+                  })
+                }).then((response) => {
+                  return response.json();
+                }).then((data) => {
+                  return {
+                    method: 'PUT',
+                    url: data.url,
+                    headers: {
+                      "content-type": "image/jpeg",
+                      "Access-Control-Allow-Origin": "*",
+                    }
+                  };
+                }));
+              },
+            });
+
+          uppy.on('complete', (result) => {
+            if (result.successful) {
+              // put link in text, add clear button (refresh)
+              console.log('Upload complete! We’ve uploaded these files:', result.successful); // if upload succeeds, let's see what we uploaded
+            } else {
+              console.log('Upload error: ', result.failed); // if upload failed, let's see what went wrong
+            }
+          });
+        };
       </script>
     </div>
   </body>

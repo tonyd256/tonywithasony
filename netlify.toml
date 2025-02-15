@@ -12,16 +12,3 @@ remote_images = ["https://ik.imagekit.io/tony/.*"]
 
 [dev]
 command = "yarn dev"
-
-[[redirects]]
-  from = "/admin/*"
-  to = "/admin/:splat"
-  force = true
-  status = 200
-  conditions = {Role = ["admin"]}
-
-[[redirects]]
-  from = "/admin/*"
-  to = "/login?site=/admin/:splat"
-  force = true
-  status = 302

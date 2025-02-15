@@ -4,7 +4,16 @@ layout: gallery
 
 <div class="w-full">
   <div class="flex flex-col items-center mx-5">
-    <div id="masonry" class="masonry flex">
+    <h1 class="text-3xl sm:text-5xl font-sans font-bold mt-1 mb-2 md:mt-10">Enjoy the photos!</h1>
+
+    <div class="flex flex-col items-center mt-4 mb-8">
+      <span class="mb-2 font-sans text-center">Used one of my photos? Optionally, please consider</span>
+      <a class="w-full" href="https://www.buymeacoffee.com/tonywithasony"><img class="m-auto" src="https://img.buymeacoffee.com/button-api/?text=Buying me a coffee&emoji=&slug=tonywithasony&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
+    </div>
+
+    <p class="font-sans block md:hidden mb-5">Phone users, tab and hold to save to your photos.</p>
+
+    <div id="masonry" class="masonry flex" data-colcade="columns: .masonry-col, items: .masonry-item">
       <div class="masonry-col masonry-col--1 mr-1 flex-1"></div>
       <div class="masonry-col masonry-col--2 mx-1 flex-1 hidden md:block"></div>
       <div class="masonry-col masonry-col--3 mx-1 flex-1 hidden lg:block"></div>
@@ -14,28 +23,16 @@ layout: gallery
 
       <script defer src="https://www.unpkg.com/mustache@4.2.0/mustache.min.js"></script>
       <script id="template" type="x-tmpl-mustache">
-        <div class="masonry-item mb-2 relative">
-          <div class="w-full h-full flex flex-col justify-end bg-fade absolute md:opacity-0 opacity-100 hover:opacity-100 transition-all">
-            <div class="flex justify-end text-gray-50 mb-2">
-              <button class="w-6 mx-2 opacity-60 hover:opacity-100 download-link" data-url="/.netlify/images?url={{ '{{url}}' }}" data-download="{{ '{{url}}' }}">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                </svg>
-              </button>
-              <a class="w-6 mx-2 opacity-60 hover:opacity-100" href="/.netlify/images?url={{ url }}" download="{{ url }}">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                </svg>
-              </a>
-              <a class="w-6 ml-2 mr-4 opacity-60 hover:opacity-100" href="/.netlify/images?url={{ url }}" download="{{ url }}">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                </svg>
-              </a>
-            </div>
+        <div class="w-full h-full flex flex-col justify-end bg-fade absolute md:opacity-0 opacity-100 hover:opacity-100 transition-all">
+          <div class="flex justify-end text-gray-50 mb-2">
+            <a class="w-6 mx-2 opacity-60 hover:opacity-100 download-link" download="{{ '{{name}}' }}" href="{{ '{{url}}' }}" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+            </a>
           </div>
-            <img class="h-auto max-w-full lazyload" width="500px" height="auto" src="{{ '{{url}}' }}?tr=w-500,q-10,bl-30" data-srcset="{{ '{{url}}' }}?tr=w-500 500w, {{ '{{url}}' }}?tr=w-1000 1000w" data-src="{{ '{{url}}' }}?tr=w-1000" alt="Image for {{ '{{name}}' }}"></img>
         </div>
+        <img class="h-auto max-w-full lazyload" width="500px" height="auto" loading="lazy" src="{{ '{{url}}' }}?tr=w-1,h-1:w-500,q-10,bl-30" data-srcset="{{ '{{url}}' }}?tr=w-500 500w, {{ '{{url}}' }}?tr=w-1080 1080w, {{ '{{url}}' }}?tr=w-2048 2048w" data-src="{{ '{{url}}' }}?tr=w-2048" data-sizes="auto" alt="Image for {{ '{{name}}' }}"></img>
       </script>
       <script>
         document.addEventListener("DOMContentLoaded", async function () {
@@ -47,7 +44,15 @@ layout: gallery
             const container = document.getElementById("masonry");
             const template = document.getElementById('template').innerHTML;
             images.forEach(function (image) {
-              container.insertAdjacentHTML('beforeend', Mustache.render(template, image));
+              const names = image.name.split('/');
+
+              if (names.length > 0)
+                image.name = names[names.length - 1];
+
+              const d = document.createElement('div');
+              d.classList.add("masonry-item", "mb-2", "relative");
+              d.innerHTML = Mustache.render(template, image);
+              masonry.append(d);
             });
           }
         });
