@@ -15,6 +15,7 @@ layout: gallery
 
     <a id="zip-file" class="mb-4 rounded px-6 py-2 bg-blue-500 hover:bg-blue-400 focus:bg-blue-600 outline-none text-white cursor-pointer" href="#" target="_blank">Download All Images</a>
 
+    <span id="loading">Loading images ...</span>
     <div id="masonry" class="masonry flex w-full" data-colcade="columns: .masonry-col, items: .masonry-item">
       <div class="masonry-col masonry-col--1 mr-1 flex-1"></div>
       <div class="masonry-col masonry-col--2 mx-1 flex-1 hidden md:block"></div>
@@ -26,16 +27,15 @@ layout: gallery
 
       <script defer src="https://www.unpkg.com/mustache@4.2.0/mustache.min.js"></script>
       <script id="template" type="x-tmpl-mustache">
-        <div class="w-full h-full flex flex-col justify-end bg-fade absolute md:opacity-0 opacity-100 hover:opacity-100 transition-all">
-          <div class="flex justify-end text-gray-50 mb-2">
-            <a class="w-6 mx-2 opacity-60 hover:opacity-100 download-link" href="{{ '{{url}}' }}" target="_blank">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-              </svg>
-            </a>
-          </div>
-        </div>
         <img class="h-auto max-w-full lazyload" width="500px" height="auto" loading="lazy" src="{{ '{{image_url}}' }}?tr=w-1,h-1:w-500,q-10,bl-30" data-srcset="{{ '{{image_url}}' }}?tr=w-500 500w, {{ '{{image_url}}' }}?tr=w-1080 1080w, {{ '{{image_url}}' }}?tr=w-2048 2048w" data-src="{{ '{{image_url}}' }}?tr=w-2048" data-sizes="auto" alt="Image for {{ '{{name}}' }}"></img>
+        <div class="w-full flex justify-between border px-3 py-1 bg-gray-50">
+          <span>{{ '{{name}}' }}</span>
+          <a class="w-6 text-black download-link" href="{{ '{{url}}' }}" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+          </a>
+        </div>
       </script>
       <script>
         document.addEventListener("DOMContentLoaded", async function () {
@@ -61,10 +61,14 @@ layout: gallery
               }
 
               const d = document.createElement('div');
-              d.classList.add("masonry-item", "mb-2", "relative");
+              d.classList.add("masonry-item", "mb-2", "relative", "flex", "flex-col");
               d.innerHTML = Mustache.render(template, image);
               masonry.append(d);
             });
+
+            setTimeout(function () {
+              document.getElementById("loading").remove();
+            }, 1000);
           }
         });
       </script>
