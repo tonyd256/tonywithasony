@@ -11,28 +11,31 @@ layout: gallery
       <a class="w-full" href="https://www.buymeacoffee.com/tonywithasony"><img class="m-auto" src="https://img.buymeacoffee.com/button-api/?text=Buying me a coffee&emoji=&slug=tonywithasony&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
     </div>
 
-    <p class="font-sans block md:hidden mb-5">Phone users, tab and hold to save to your photos.</p>
+    <p class="font-sans block md:hidden mb-5">Phone users, tap and hold to save to your photos.</p>
 
-    <div id="masonry" class="masonry flex" data-colcade="columns: .masonry-col, items: .masonry-item">
+    <a id="zip-file" class="mb-4 rounded px-6 py-2 bg-blue-500 hover:bg-blue-400 focus:bg-blue-600 outline-none text-white cursor-pointer" href="#" target="_blank">Download All Images</a>
+
+    <div id="masonry" class="masonry flex w-full" data-colcade="columns: .masonry-col, items: .masonry-item">
       <div class="masonry-col masonry-col--1 mr-1 flex-1"></div>
       <div class="masonry-col masonry-col--2 mx-1 flex-1 hidden md:block"></div>
       <div class="masonry-col masonry-col--3 mx-1 flex-1 hidden lg:block"></div>
       <div class="masonry-col masonry-col--4 mx-1 flex-1 hidden 2xl:block"></div>
       <div class="masonry-col masonry-col--5 mx-1 flex-1 hidden 3xl:block"></div>
       <div class="masonry-col masonry-col--6 mx-1 flex-1 hidden 4xl:block"></div>
+<!-- <a class="w&#45;6 mx&#45;2 opacity&#45;60 hover:opacity&#45;100 download&#45;link" download="{{ '{{name}}' }}" href="{{ site.url }}/.netlify/images?url={{ '{{url}}' }}&#38;fm=jpg" target="_blank"> -->
 
       <script defer src="https://www.unpkg.com/mustache@4.2.0/mustache.min.js"></script>
       <script id="template" type="x-tmpl-mustache">
         <div class="w-full h-full flex flex-col justify-end bg-fade absolute md:opacity-0 opacity-100 hover:opacity-100 transition-all">
           <div class="flex justify-end text-gray-50 mb-2">
-            <a class="w-6 mx-2 opacity-60 hover:opacity-100 download-link" download="{{ '{{name}}' }}" href="{{ '{{url}}' }}" target="_blank">
+            <a class="w-6 mx-2 opacity-60 hover:opacity-100 download-link" href="{{ '{{url}}' }}" target="_blank">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
               </svg>
             </a>
           </div>
         </div>
-        <img class="h-auto max-w-full lazyload" width="500px" height="auto" loading="lazy" src="{{ '{{url}}' }}?tr=w-1,h-1:w-500,q-10,bl-30" data-srcset="{{ '{{url}}' }}?tr=w-500 500w, {{ '{{url}}' }}?tr=w-1080 1080w, {{ '{{url}}' }}?tr=w-2048 2048w" data-src="{{ '{{url}}' }}?tr=w-2048" data-sizes="auto" alt="Image for {{ '{{name}}' }}"></img>
+        <img class="h-auto max-w-full lazyload" width="500px" height="auto" loading="lazy" src="{{ '{{image_url}}' }}?tr=w-1,h-1:w-500,q-10,bl-30" data-srcset="{{ '{{image_url}}' }}?tr=w-500 500w, {{ '{{image_url}}' }}?tr=w-1080 1080w, {{ '{{image_url}}' }}?tr=w-2048 2048w" data-src="{{ '{{image_url}}' }}?tr=w-2048" data-sizes="auto" alt="Image for {{ '{{name}}' }}"></img>
       </script>
       <script>
         document.addEventListener("DOMContentLoaded", async function () {
@@ -43,11 +46,19 @@ layout: gallery
             const images = await res.json();
             const container = document.getElementById("masonry");
             const template = document.getElementById('template').innerHTML;
+            var zip;
+
             images.forEach(function (image) {
               const names = image.name.split('/');
 
               if (names.length > 0)
                 image.name = names[names.length - 1];
+
+              if (image.name.endsWith('.zip')) {
+                const zip = document.getElementById("zip-file");
+                zip.href = image.url;
+                return;
+              }
 
               const d = document.createElement('div');
               d.classList.add("masonry-item", "mb-2", "relative");

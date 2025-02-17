@@ -18,6 +18,7 @@
 
     <link href="https://releases.transloadit.com/uppy/v4.13.2/uppy.min.css" rel="stylesheet">
     <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script defer src="/js/jszip.min.js"></script>
   </head>
   <body>
     <div class="h-screen w-screen flex items-center justify-center flex-col">
@@ -59,52 +60,71 @@
         }
 
         var uppy;
+        var folderName;
         function initUppy() {
           if (uppy) return;
 
-          const folderName = Array.from(crypto.getRandomValues(new Uint8Array(4)))
+          folderName = Array.from(crypto.getRandomValues(new Uint8Array(4)))
             .map(b => b.toString(16).padStart(2, '0')).join('');
           document.getElementById("folder-name").textContent = "https://tonywithasony.com/transfer/?code="+folderName;
           document.getElementById("folder-name").href = "https://tonywithasony.com/transfer/?code="+folderName;
 
-          uppy = new Uppy()
-            .use(Dashboard, { target: '#uppy', inline: true })
-            .use(AwsS3, {
-              fields: [],
-              getUploadParameters(file) {
-                return netlifyIdentity.currentUser().jwt().then( token => fetch('/.netlify/functions/get-presigned-url', {
-                  method: 'POST',
+          uppy = new Uppy();
+          uppy.use(Dashboard, { target: '#uppy', inline: true });
+          uppy.use(AwsS3, {
+            fields: [],
+            getUploadParameters(file) {
+              return netlifyIdentity.currentUser().jwt().then( token => fetch('/.netlify/functions/get-presigned-url', {
+                method: 'POST',
+                headers: {
+                  'cache-control': 'no-cache',
+                  'content-type': 'application/json',
+                  'Authorization': 'Bearer ' + token
+                },
+                body: JSON.stringify({
+                  fileName: file.name,
+                  fileType: file.type,
+                  folderName: folderName,
+                })
+              }).then((response) => {
+                return response.json();
+              }).then((data) => {
+                return {
+                  method: 'PUT',
+                  url: data.url,
                   headers: {
-                    'cache-control': 'no-cache',
-                    'content-type': 'application/json',
-                    'Authorization': 'Bearer ' + token
-                  },
-                  body: JSON.stringify({
-                    fileName: file.name,
-                    fileType: file.type,
-                    folderName: folderName,
-                  })
-                }).then((response) => {
-                  return response.json();
-                }).then((data) => {
-                  return {
-                    method: 'PUT',
-                    url: data.url,
-                    headers: {
-                      "content-type": "image/jpeg",
-                      "Access-Control-Allow-Origin": "*",
-                    }
-                  };
-                }));
-              },
+                    "content-type": "image/jpeg",
+                    "Access-Control-Allow-Origin": "*",
+                  }
+                };
+              }));
+            },
+          });
+
+          uppy.addPreProcessor( async function (ids) {
+            const files = uppy.getFiles();
+            if (files.filter(file => file.name.endsWith('.zip')).length > 0)
+              return;
+
+            const zip = new JSZip();
+            for (var i = 0; i < files.length; i++) {
+              zip.file(files[i].name, files[i].data);
+            }
+
+            const zipFile = await zip.generateAsync({type: "blob"});
+            const zipId = uppy.addFile({
+              name: folderName+'.zip',
+              type: zipFile.type,
+              data: zipFile
             });
+            uppy.upload();
+          });
 
           uppy.on('complete', (result) => {
             if (result.successful) {
-              // put link in text, add clear button (refresh)
-              console.log('Upload complete! We’ve uploaded these files:', result.successful); // if upload succeeds, let's see what we uploaded
+              console.log('Upload complete! We’ve uploaded these files:', result.successful);
             } else {
-              console.log('Upload error: ', result.failed); // if upload failed, let's see what went wrong
+              console.log('Upload error: ', result.failed);
             }
           });
         };
