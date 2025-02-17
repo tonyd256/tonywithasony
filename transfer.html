@@ -16,6 +16,10 @@ layout: gallery
     <a id="zip-file" class="mb-4 rounded px-6 py-2 bg-blue-500 hover:bg-blue-400 focus:bg-blue-600 outline-none text-white cursor-pointer" href="#" target="_blank">Download All Images</a>
 
     <span id="loading">Loading images ...</span>
+    <div id="not-found" class="hidden flex flex-col justify-center items-center mt-5">
+      <h2 class="text-2xl sm:text-4xl font-sans font-bold mb-8">Not Found</h2>
+      <p class="text-xl font-sans">Transfer not found. It might have expired. Reach out to Tony for help.</p>
+    </div>
     <div id="masonry" class="masonry flex w-full" data-colcade="columns: .masonry-col, items: .masonry-item">
       <div class="masonry-col masonry-col--1 mr-1 flex-1"></div>
       <div class="masonry-col masonry-col--2 mx-1 flex-1 hidden md:block"></div>
@@ -23,7 +27,6 @@ layout: gallery
       <div class="masonry-col masonry-col--4 mx-1 flex-1 hidden 2xl:block"></div>
       <div class="masonry-col masonry-col--5 mx-1 flex-1 hidden 3xl:block"></div>
       <div class="masonry-col masonry-col--6 mx-1 flex-1 hidden 4xl:block"></div>
-<!-- <a class="w&#45;6 mx&#45;2 opacity&#45;60 hover:opacity&#45;100 download&#45;link" download="{{ '{{name}}' }}" href="{{ site.url }}/.netlify/images?url={{ '{{url}}' }}&#38;fm=jpg" target="_blank"> -->
 
       <script defer src="https://www.unpkg.com/mustache@4.2.0/mustache.min.js"></script>
       <script id="template" type="x-tmpl-mustache">
@@ -44,6 +47,10 @@ layout: gallery
 
           if (res.status === 200) {
             const images = await res.json();
+
+            if (images.length === 0)
+              return notFound();
+
             const container = document.getElementById("masonry");
             const template = document.getElementById('template').innerHTML;
             var zip;
@@ -69,8 +76,16 @@ layout: gallery
             setTimeout(function () {
               document.getElementById("loading").remove();
             }, 1000);
+          } else {
+            notFound();
           }
         });
+
+        function notFound() {
+          document.getElementById("loading").remove();
+          document.getElementById("zip-file").remove();
+          document.getElementById("not-found").classList.remove("hidden");
+        }
       </script>
     </div>
   </div>
