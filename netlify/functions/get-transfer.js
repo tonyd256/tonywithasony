@@ -42,7 +42,4 @@ async function handler(req, context) {
   }
 }
 
-function newImage(name) {
-}
-
 exports.handler = handler;
