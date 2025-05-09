@@ -1,5 +1,4 @@
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
-const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+const { S3Client, CreateMultipartUploadCommand } = require("@aws-sdk/client-s3");
 require('dotenv').config();
 
 const s3Client = new S3Client({
@@ -31,12 +30,20 @@ async function handler(req, context) {
       ContentType: fileType,
     };
 
-    const cmd = new PutObjectCommand(params);
-    const url = await getSignedUrl(s3Client, cmd, { expiresIn: 60*5 });
-    return { body: JSON.stringify({ url }), headers: { "Content-Type": "application/json" }, statusCode: 200 };
+    const cmd = new CreateMultipartUploadCommand(params);
+    const result = await s3Client.send(cmd);
+
+    return {
+      body: JSON.stringify({
+        uploadId: result.UploadId,
+        key: result.Key
+      }),
+      headers: { "Content-Type": "application/json" },
+      statusCode: 200
+    };
   } catch (err) {
-    console.error('Error generating pre-signed URL:', err);
-    return { body: JSON.stringify({ error: "Failed to generate pre-signed URL" }), headers: { "Content-Type": "application/json" }, statusCode: 500 };
+    console.error('Error creating multipart upload:', err);
+    return { body: JSON.stringify({ error: "Failed creating multipart upload" }), headers: { "Content-Type": "application/json" }, statusCode: 500 };
   }
 }
 

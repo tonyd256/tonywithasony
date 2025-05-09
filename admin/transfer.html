@@ -99,6 +99,10 @@
                 };
               }));
             },
+            createMultipartUploadUrl: '/.netlify/functions/create-multipart-upload',
+            getUploadPartUrl: '/.netlify/functions/get-upload-part-url',
+            completeMultipartUploadUrl: '/.netlify/functions/complete-multipart-upload',
+            abortMultipartUploadUrl: '/.netlify/functions/abort-multipart-upload',
           });
 
           uppy.addPreProcessor( async function (ids) {
