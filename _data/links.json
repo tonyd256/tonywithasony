@@ -1,8 +1,18 @@
 [
   {
+    "title": "Welcome to the Circus - Substack",
+    "url": "https://open.substack.com/pub/tonywithasony/p/welcome-to-the-circus?r=1ugdot&utm_campaign=post&utm_medium=web&showWelcomeOnShare=true",
+    "type": "link"
+  },
+  {
     "title": "We Are Here. We Run Long.",
     "url": "https://youtu.be/NVpjQH1nnGA",
     "type": "video"
+  },
+  {
+    "title": "Portfolio Website",
+    "url": "/",
+    "type": "link"
   },
   {
     "title": "Miwok 100k Photos!",
@@ -28,11 +38,6 @@
     "title": "Dipsea Generations Film Fundraiser",
     "url": "https://seedandspark.com/fund/dipsea-generations#story",
     "type": "video"
-  },
-  {
-    "title": "Portfolio Website",
-    "url": "/",
-    "type": "link"
   },
   {
     "title": "Headlands 27K",
