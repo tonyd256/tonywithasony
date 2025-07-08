@@ -11,6 +11,3 @@ remote_images = ["https://ik.imagekit.io/tony/.*"]
 
 [dev]
 command = "yarn dev"
-
-[[plugins]]
-package = "./plugins/netlify-plugin-log-env"
