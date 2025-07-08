@@ -15,7 +15,7 @@ async function getBasecampLinks() {
       return {
         title: p.Title.title[0].plain_text,
         url: p.Url.url,
-        type: p.Type.select.name.toLowercase()
+        type: p.Type.select.name.toLowerCase()
       };
     });
     return data;
