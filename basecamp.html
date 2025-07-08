@@ -56,6 +56,10 @@ sitemapPriority: 0.3
             <li><a class="block rounded-[12px] py-4 px-8 bg-slate-100 hover:bg-slate-200 mt-4 max-w-[400px]" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">📸 {{ link.title }}</a></li>
           {% elsif link.type == "video" %}
             <li><a class="block rounded-[12px] py-4 px-8 bg-slate-100 hover:bg-slate-200 mt-4 max-w-[400px]" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">🎥 {{ link.title }}</a></li>
+          {% elsif link.type == "blog" %}
+            <li><a class="block rounded-[12px] py-4 px-8 bg-slate-100 hover:bg-slate-200 mt-4 max-w-[400px]" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">📝 {{ link.title }}</a></li>
+          {% elsif link.type == "podcast" %}
+            <li><a class="block rounded-[12px] py-4 px-8 bg-slate-100 hover:bg-slate-200 mt-4 max-w-[400px]" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">🎙️ {{ link.title }}</a></li>
           {% else %}
             <li><a class="block rounded-[12px] py-4 px-8 bg-slate-100 hover:bg-slate-200 mt-4 max-w-[400px]" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">{{ link.title }}</a></li>
           {% endif %}
