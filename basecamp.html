@@ -83,14 +83,14 @@ sitemapPriority: 0.3
       if (links.length === 0) return;
 
       const container = document.getElementById("links");
-      container.innerHTML = "";
+      var nodes = [];
 
       links.forEach( function (link) {
         const l = document.createElement('li');
         const a = document.createElement('a');
         a.classList.add("block", "rounded-[12px]", "py-4", "px-8", "bg-slate-100", "hover:bg-slate-200", "mt-4", "max-w-[400px]");
         a.setAttribute("target", "_blank");
-        a.setAttribute("rel", "noopener, noreferrer");
+        a.setAttribute("rel", "noopener noreferrer");
         a.setAttribute("href", link.url);
         var emoji = "";
         switch (link.type) {
@@ -111,8 +111,26 @@ sitemapPriority: 0.3
             break;
         }
         l.append(a);
-        container.append(l);
+        nodes.push(l);
       });
+
+      // A crude diff
+      /*if (container.childElementCount != nodes.length) {
+        resetLinks(nodes);
+      } else {*/
+        for (var i = 0; i < nodes.length; i++) {
+          if (!nodes[i].isEqualNode(container.children[i])) {
+            resetLinks(nodes);
+            break;
+          }
+        }
+      //}
     });
+
+    function resetLinks(nodes) {
+      const container = document.getElementById("links");
+      container.innerHTML = "";
+      nodes.forEach( function (node) { container.append(node); });
+    }
   </script>
 </main>
