@@ -50,7 +50,7 @@ sitemapPriority: 0.3
         <a class="w-full" href="https://www.buymeacoffee.com/tonywithasony"><img class="m-auto" src="https://img.buymeacoffee.com/button-api/?text=Buying me a coffee&emoji=&slug=tonywithasony&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
       </div>
       <h3 class="italic bold text-4xl mt-3">Links</h3>
-      <ul class="font-sans text-xl text-center">
+      <ul id="links" class="font-sans text-xl text-center">
         {% for link in links %}
           {% if link.type == "photos" %}
             <li><a class="block rounded-[12px] py-4 px-8 bg-slate-100 hover:bg-slate-200 mt-4 max-w-[400px]" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">📸 {{ link.title }}</a></li>
@@ -72,4 +72,47 @@ sitemapPriority: 0.3
       </ul>
     </div>
   </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      const res = await fetch("/.netlify/functions/get-links");
+
+      if (res.status != 200) return;
+      const links = await res.json();
+
+      if (links.length === 0) return;
+
+      const container = document.getElementById("links");
+      container.innerHTML = "";
+
+      links.forEach( function (link) {
+        const l = document.createElement('li');
+        const a = document.createElement('a');
+        a.classList.add("block", "rounded-[12px]", "py-4", "px-8", "bg-slate-100", "hover:bg-slate-200", "mt-4", "max-w-[400px]");
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener, noreferrer");
+        a.setAttribute("href", link.url);
+        var emoji = "";
+        switch (link.type) {
+          case "photos":
+            a.innerText = 📸 + " " + link.title;
+            break;
+          case "video":
+            a.innerText = 🎥 + " " + link.title;
+            break;
+          case "blog":
+            a.innerText = 📝 + " " + link.title;
+            break;
+          case "podcast":
+            a.innerText = 🎙️ + " " + link.title;
+            break;
+          default:
+            a.innerText = link.title;
+            break;
+        }
+        l.append(a);
+        container.append(l);
+      });
+    });
+  </script>
 </main>
