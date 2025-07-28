@@ -95,16 +95,16 @@ sitemapPriority: 0.3
         var emoji = "";
         switch (link.type) {
           case "photos":
-            a.innerText = 📸 + " " + link.title;
+            a.innerText = "📸 " + link.title;
             break;
           case "video":
-            a.innerText = 🎥 + " " + link.title;
+            a.innerText = "🎥 " + link.title;
             break;
           case "blog":
-            a.innerText = 📝 + " " + link.title;
+            a.innerText = "📝 " + link.title;
             break;
           case "podcast":
-            a.innerText = 🎙️ + " " + link.title;
+            a.innerText = "🎙️ " + link.title;
             break;
           default:
             a.innerText = link.title;
