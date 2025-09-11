@@ -60,6 +60,7 @@ module.exports = {
   plugins: [
     plugin(function({ addVariant }) {
       addVariant('mouse', '@media (pointer: fine)');
+      addVariant('notmouse', '@media not all and (pointer: fine)');
     })
   ],
 }
