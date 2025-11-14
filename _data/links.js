@@ -8,9 +8,14 @@ const notion = new Client({
 
 async function getBasecampLinks() {
   try {
-    const links = await notion.databases.query({ database_id: "22a93d9bb58c80568a98f99f122a4a04" });
+    const database = await notion.databases.retrieve({ database_id: "22a93d9bb58c80568a98f99f122a4a04" });
 
-    const data = _.map(links.results, function (link) {
+    if (database.data_sources.length === 0)
+      throw new Error("No data sources available.");
+
+    const links = await notion.dataSources.query({ data_source_id: database.data_sources[0].id });
+
+    const data = _.map(_.orderBy(links.results, 'created_time', 'desc'), function (link) {
       const p = link.properties;
       return {
         title: p.Title.title[0].plain_text,
@@ -18,7 +23,9 @@ async function getBasecampLinks() {
         type: p.Type.select.name.toLowerCase()
       };
     });
-    return data;
+    const allLinks = [{ title: 'Portfolio Website', url: '/', type: 'link' }, ...data];
+
+    return allLinks;
   } catch (e) {
     console.error(e);
   }

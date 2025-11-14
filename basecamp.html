@@ -21,7 +21,8 @@ sitemapPriority: 0.3
 
   <section class="sm:mx-8 text-gray-800 pb-10 flex justify-center">
     <div class="flex flex-col items-center max-w-screen-sm sm:w-full w-96 bg-white p-6 rounded">
-      <span class="px-8 text-center mb-4">SF, Bay Area-based photographer and filmmaker specializing in running and trail.</span>
+      <span class="px-8 text-center">Photographer and filmmaker specializing in trail running athlete storytelling and brand campaigns.</span>
+      <span class="px-8 text-center italic mb-4">San Francisco, CA</span>
       <div class="flex mb-3 justify-around items-center w-full max-w-xs">
         <a href="https://instagram.com/tonywithasony" target="_blank" rel="noopener noreferrer" class="">
           <img class="h-[24px]" src="/images/Instagram.png" alt="Instagram"></img>
@@ -82,6 +83,7 @@ sitemapPriority: 0.3
 
       if (res.status != 200) return;
       const links = await res.json();
+      console.log(links);
 
       if (links.length === 0) return;
 
