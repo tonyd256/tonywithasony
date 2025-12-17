@@ -86,7 +86,7 @@ layout: gallery
                   try {
                     const res = await fetch(link.dataset.url);
                     const blob = await res.blob();
-                    navigator.share({ files: [new File([blob], link.dataset.download+'.jpg')] });
+                    await navigator.share({ files: [new File([blob], link.dataset.download+'.jpg')] });
                   } catch (e) {
                     console.error(e);
                     doDownload(link.dataset.url, link.dataset.download);
