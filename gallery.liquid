@@ -74,19 +74,31 @@ layout: gallery
 <script>
   window.onload = function() {
     const downloadLinks = document.getElementsByClassName("download-link");
+
     Array.from(downloadLinks).forEach(function (link) {
-      link.onclick = function () {
-        if (navigator.canShare && navigator.share && navigator.canShare({ url: link.dataset.url })) {
-          navigator.share({ url: link.dataset.url });
+      link.onclick = async function () {
+        if (navigator.share) {
+          try {
+            const res = await fetch(link.dataset.url);
+            const blob = await res.blob();
+            navigator.share({ files: [new File([blob], link.dataset.download)] });
+          } catch (e) {
+            console.error(e);
+            doDownload(link.dataset.url, link.dataset.download);
+          }
         } else {
-          var a = document.createElement("a");
-          a.href = link.dataset.url;
-          a.download = link.dataset.download;
-          a.click();
-          a.remove();
+          doDownload(link.dataset.url, link.dataset.download);
         }
       }
     });
+  }
+
+  function doDownload(url, download) {
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = download;
+    a.click();
+    a.remove();
   }
 </script>
 <script src="/js/lazysizes.min.js" async></script>
