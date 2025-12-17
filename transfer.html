@@ -81,18 +81,18 @@ layout: gallery
 
             Array.from(downloadLinks).forEach(function (link) {
               link.onclick = async function (e) {
+                e.preventDefault();
                 if (navigator.share) {
                   try {
                     const res = await fetch(link.dataset.url);
                     const blob = await res.blob();
                     navigator.share({ files: [new File([blob], link.dataset.download)] });
-                    e.preventDefault();
                   } catch (e) {
                     console.error(e);
-                    //doDownload(link.dataset.url, link.dataset.download);
+                    doDownload(link.dataset.url, link.dataset.download);
                   }
                 } else {
-                  //doDownload(link.dataset.url, link.dataset.download);
+                  doDownload(link.dataset.url, link.dataset.download);
                 }
               }
             });
