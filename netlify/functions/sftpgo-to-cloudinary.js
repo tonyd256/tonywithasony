@@ -43,13 +43,13 @@ exports.handler = async (event) => {
     if (!accessKeyId || !secretAccessKey) {
       return { statusCode: 500, body: "missing b2 credentials" };
     }
-    if (!process.env.B2_S3_ENDPOINT || !process.env.B2_REGION) {
+    if (!process.env.B2_ENDPOINT || !process.env.B2_REGION) {
       return { statusCode: 500, body: "missing b2 endpoint/region" };
     }
 
     const s3 = new S3Client({
       region: process.env.B2_REGION, // e.g. us-west-004
-      endpoint: process.env.B2_S3_ENDPOINT, // https://s3.us-west-004.backblazeb2.com
+      endpoint: process.env.B2_ENDPOINT, // https://s3.us-west-004.backblazeb2.com
       credentials: { accessKeyId, secretAccessKey },
       forcePathStyle: true,
     });
