@@ -22,6 +22,7 @@
     "autoprefixer": "^10.4.10",
     "aws-sdk": "^2.1689.0",
     "chokidar-cli": "^2.1.0",
+    "cloudinary": "^2.8.0",
     "concurrently": "^6.0.0",
     "date-fns": "^2.19.0",
     "decap-cms-app": "^3.3.3",
