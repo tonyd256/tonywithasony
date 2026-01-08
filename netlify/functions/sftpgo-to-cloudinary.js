@@ -16,6 +16,8 @@ function basenameNoExt(key) {
 exports.handler = async (event) => {
   try {
     // 0) Verify webhook secret (set this header in SFTPGo action)
+    console.log("headers keys:", Object.keys(event.headers || {}));
+    console.log("x-sftpgo-secret:", header(event.headers, "x-sftpgo-secret"));
     const secret = header(event.headers, "x-sftpgo-secret");
     if (!process.env.WEBHOOK_SECRET || secret !== process.env.WEBHOOK_SECRET) {
       return { statusCode: 401, body: "unauthorized" };
