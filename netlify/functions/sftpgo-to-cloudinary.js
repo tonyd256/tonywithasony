@@ -69,14 +69,25 @@ exports.handler = async (event) => {
 
     const publicId = basenameNoExt(key);
 
-    const result = await cloudinary.uploader.upload(signedUrl, {
-      type: "fetch",
+    // Cloudinary fetch upload: you must upload a cloudinary "fetch" URL
+    const fetchUrl =
+      `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}` +
+      `/image/fetch/${encodeURIComponent(signedUrl)}`;
+
+    const result = await cloudinary.uploader.upload(fetchUrl, {
       resource_type: "image",
       folder: process.env.CLOUDINARY_FOLDER || "sftpgo-ingest",
       public_id: publicId,
-      tags: ["sftpgo", "b2", payload.username || "unknown"],
-      // Optional: prevent duplicates thrashing
       overwrite: false,
+    // });
+    // const result = await cloudinary.uploader.upload(signedUrl, {
+    //   type: "fetch",
+    //   resource_type: "image",
+    //   folder: process.env.CLOUDINARY_FOLDER || "sftpgo-ingest",
+    //   public_id: publicId,
+    //   tags: ["sftpgo", "b2", payload.username || "unknown"],
+    //   // Optional: prevent duplicates thrashing
+    //   overwrite: false,
 
       // OPTIONAL: generate crops automatically (Cloudinary will do AI-ish framing via gravity:auto)
       eager: [
