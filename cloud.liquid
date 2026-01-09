@@ -59,6 +59,9 @@ layout: gallery
                 if (names.length > 0)
                   name = names[names.length - 1];
 
+                name = name.replace(".jpg", "");
+                if (document.getElementsByName(name).length > 0) return;
+
                 // easiest: use secure_url for original display
                 const original = base;
 
@@ -73,12 +76,22 @@ layout: gallery
                 const url11  = crop(1080,1080);
 
                 const d = document.createElement('div');
+                d.setAttribute("name", name);
                 d.classList.add("masonry-item", "mb-2", "relative", "flex", "flex-col");
-                d.innerHTML.append(Mustache.render(template, { name: name, image_url: original }));
-                d.innerHTML.append(Mustache.render(template, { name: name, image_url: url916 }));
-                d.innerHTML.append(Mustache.render(template, { name: name, image_url: url45 }));
-                d.innerHTML.append(Mustache.render(template, { name: name, image_url: url11 }));
+                d.innerHTML = Mustache.render(template, { name: name + "-original.jpg", image_url: original });
                 masonry.append(d);
+                const d1 = document.createElement('div');
+                d1.classList.add("masonry-item", "mb-2", "relative", "flex", "flex-col");
+                d1.innerHTML = Mustache.render(template, { name: name + "-9x16.jpg", image_url: url916 });
+                masonry.append(d1);
+                const d2 = document.createElement('div');
+                d2.classList.add("masonry-item", "mb-2", "relative", "flex", "flex-col");
+                d2.innerHTML = Mustache.render(template, { name: name + "-4x5.jpg", image_url: url45 });
+                masonry.append(d2);
+                const d3 = document.createElement('div');
+                d3.classList.add("masonry-item", "mb-2", "relative", "flex", "flex-col");
+                d3.innerHTML = Mustache.render(template, { name: name + "-1x1.jpg", image_url: url11 });
+                masonry.append(d3);
               });
 
             setTimeout(function () {
@@ -142,6 +155,8 @@ layout: gallery
           a.click();
           document.body.removeChild(a);
         }
+
+        setInterval(refresh, 60*60*5);
 
       </script>
     </div>

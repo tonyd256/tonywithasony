@@ -1,5 +1,6 @@
 const { S3Client, GetObjectCommand } = require("@aws-sdk/client-s3");
 const { v2: cloudinary } = require("cloudinary");
+const sharp = require("sharp");
 
 function header(headers, name) {
   if (!headers) return undefined;
@@ -22,7 +23,7 @@ exports.handler = async (event) => {
 
     const payload = JSON.parse(event.body || "{}");
 
-    const bucket = payload.bucket || process.env.B2_BUCKET;
+    const bucket = process.env.B2_BUCKET || payload.bucket;
     let key = payload.key || payload.fs_path || payload.virtual_path;
     if (!bucket || !key) return { statusCode: 400, body: "missing bucket/key" };
 
@@ -33,12 +34,8 @@ exports.handler = async (event) => {
     }
 
     // 2) B2 S3-compatible client
-    const accessKeyId =
-      process.env.B2_KEY_ID || process.env.B2_ACCESS_KEY_ID || process.env.AWS_ACCESS_KEY_ID;
-    const secretAccessKey =
-      process.env.B2_APP_KEY ||
-      process.env.B2_SECRET_ACCESS_KEY ||
-      process.env.AWS_SECRET_ACCESS_KEY;
+    const accessKeyId = process.env.B2_KEY_ID;
+    const secretAccessKey = process.env.B2_APP_KEY;
 
     if (!accessKeyId || !secretAccessKey) {
       return { statusCode: 500, body: "missing b2 credentials" };
@@ -71,18 +68,18 @@ exports.handler = async (event) => {
       const up = cloudinary.uploader.upload_stream(
         {
           resource_type: "image",
-          folder: process.env.CLOUDINARY_FOLDER || "sftpgo-ingest",
+          folder: (process.env.CLOUDINARY_FOLDER || "sftpgo-ingest")+"/"+(payload.username || "unknown"),
           public_id: publicId,
           overwrite: false,
-          tags: ["sftpgo", "b2", payload.username || "unknown"],
+          tags: ["sftpgo", "ftp-to-cloud", payload.username || "unknown"],
 
           // Optional: generate crops automatically once stable
-          eager: [
-            { width: 1080, height: 1920, crop: "fill", gravity: "auto" },
-            { width: 1080, height: 1350, crop: "fill", gravity: "auto" },
-            { width: 1080, height: 1080, crop: "fill", gravity: "auto" },
-          ],
-          eager_async: true,
+          // eager: [
+          //   { width: 1080, height: 1920, crop: "fill", gravity: "auto" },
+          //   { width: 1080, height: 1350, crop: "fill", gravity: "auto" },
+          //   { width: 1080, height: 1080, crop: "fill", gravity: "auto" },
+          // ],
+          // eager_async: true,
         },
         (err, result) => (err ? reject(err) : resolve(result))
       );
