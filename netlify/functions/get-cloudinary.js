@@ -13,8 +13,10 @@ exports.handler = async (event) => {
     // List resources in a folder (Admin API)
     const res = await cloudinary.api.resources({
       type: "upload",
+      resource_type: "image",
       prefix: folder + "/",   // returns assets under folder
       max_results: 500,
+      tags: true,
       // next_cursor: ... (add paging later)
     });
 
@@ -27,7 +29,8 @@ exports.handler = async (event) => {
       width: r.width,
       height: r.height,
       secure_url: r.secure_url,
-    }));
+      tags: r.tags,
+    })).filter(i => i.bytes > 0);
 
     return {
       statusCode: 200,

@@ -13,7 +13,7 @@ layout: gallery
       <h2 class="text-2xl sm:text-4xl font-sans font-bold mb-8">Not Found</h2>
       <p class="text-xl font-sans">Transfer not found. It might have expired. Reach out to Tony for help.</p>
     </div>
-    <div id="masonry" class="masonry flex w-full" data-colcade="columns: .masonry-col, items: .masonry-item">
+    <div id="masonry" class="masonry flex w-full">
       <div class="masonry-col masonry-col--1 mr-1 flex-1"></div>
       <div class="masonry-col masonry-col--2 mx-1 flex-1 hidden md:block"></div>
       <div class="masonry-col masonry-col--3 mx-1 flex-1 hidden lg:block"></div>
@@ -34,7 +34,15 @@ layout: gallery
         </div>
       </script>
       <script>
+        var colc;
+
         document.addEventListener("DOMContentLoaded", refresh);
+        document.addEventListener("DOMContentLoaded", function() {
+          colc = new Colcade( '.masonry', {
+              columns: '.masonry-col',
+              items: '.masonry-item'
+          });
+        });
 
         async function refresh() {
           const res = await fetch("/.netlify/functions/get-cloudinary");
@@ -45,7 +53,6 @@ layout: gallery
             if (images.length === 0)
               return notFound();
 
-            const container = document.getElementById("masonry");
             const template = document.getElementById('template').innerHTML;
 
             images.items
@@ -79,19 +86,19 @@ layout: gallery
                 d.setAttribute("name", name);
                 d.classList.add("masonry-item", "mb-2", "relative", "flex", "flex-col");
                 d.innerHTML = Mustache.render(template, { name: name + "-original.jpg", image_url: original });
-                masonry.append(d);
+                colc.append(d);
                 const d1 = document.createElement('div');
                 d1.classList.add("masonry-item", "mb-2", "relative", "flex", "flex-col");
                 d1.innerHTML = Mustache.render(template, { name: name + "-9x16.jpg", image_url: url916 });
-                masonry.append(d1);
+                colc.append(d1);
                 const d2 = document.createElement('div');
                 d2.classList.add("masonry-item", "mb-2", "relative", "flex", "flex-col");
                 d2.innerHTML = Mustache.render(template, { name: name + "-4x5.jpg", image_url: url45 });
-                masonry.append(d2);
+                colc.append(d2);
                 const d3 = document.createElement('div');
                 d3.classList.add("masonry-item", "mb-2", "relative", "flex", "flex-col");
                 d3.innerHTML = Mustache.render(template, { name: name + "-1x1.jpg", image_url: url11 });
-                masonry.append(d3);
+                colc.append(d3);
               });
 
             setTimeout(function () {
@@ -180,5 +187,3 @@ layout: gallery
   animation: loading 3s linear infinite;
 }
 </style>
-
-<script src="/js/lazysizes.min.js" async></script>
