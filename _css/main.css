@@ -53,6 +53,11 @@
   html {
     @apply font-sans;
   }
+  /* Guard against full-bleed/decorative layers (e.g. the 100vw cover video)
+     extending past the viewport and creating horizontal scroll. */
+  body {
+    overflow-x: hidden;
+  }
 }
 
 /* .project-video { */
