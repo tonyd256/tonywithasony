@@ -1,0 +1,49 @@
+name: Import Substack posts
+
+# Pulls any new newsletter posts from Substack into _posts/ once a day.
+# New post -> commit to main -> Netlify rebuilds and publishes.
+# Requires repo secrets: IMAGEKIT_PUBLIC_KEY, IMAGEKIT_PRIVATE_KEY, IMAGEKIT_URL_ENDPOINT
+
+on:
+  schedule:
+    - cron: "0 14 * * *" # daily ~07:00 PT
+  workflow_dispatch: {} # allow manual runs from the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: import-substack
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile
+
+      - name: Import new posts
+        env:
+          IMAGEKIT_PUBLIC_KEY: ${{ secrets.IMAGEKIT_PUBLIC_KEY }}
+          IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
+          IMAGEKIT_URL_ENDPOINT: ${{ secrets.IMAGEKIT_URL_ENDPOINT }}
+        run: node scripts/import-substack.js
+
+      - name: Commit new posts
+        run: |
+          if [ -n "$(git status --porcelain _posts)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add _posts
+            git commit -m "Import new Substack post(s)"
+            git push
+          else
+            echo "No new posts to import."
+          fi

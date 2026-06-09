@@ -1,7 +1,15 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-  content: ['_site/**/*.html', '**/*.liquid', '**/*.html', '**/*.md'],
+  content: [
+    './_site/**/*.html', // rendered output — also catches dynamically-built classes (e.g. hover:text-{{ color }})
+    './*.{html,liquid}',
+    './projects/**/*.{html,liquid}',
+    './_includes/**/*.liquid',
+    './_layouts/**/*.liquid',
+    './_posts/**/*.md',
+    './_js/**/*.js',
+  ],
   theme: {
     fontFamily: {
       'sans': ['LatoLatinWeb', 'Helvetica Neue', 'Helvetica', 'system-ui', 'sans-serif'],
@@ -58,6 +66,7 @@ module.exports = {
     }
   },
   plugins: [
+    require('@tailwindcss/typography'),
     plugin(function({ addVariant }) {
       addVariant('mouse', '@media (pointer: fine)');
       addVariant('notmouse', '@media not all and (pointer: fine)');

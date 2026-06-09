@@ -1,0 +1,40 @@
+---
+title: Writing
+short_title: Writing
+layout: default
+tags: navpage
+order: 4
+sitemapPriority: 0.8
+---
+
+<header class="px-6">
+  {% render "nav", color: "black", class: "sm:h-8 h-6", collections: collections, page: page %}
+</header>
+
+<section class="flex items-center flex-col w-full mb-16">
+  <header class="mt-5 w-full px-4">
+    <h1 class="lg:text-8xl md:text-5xl text-4xl font-sans font-black text-center text-neutral-900">Writing</h1>
+    <p class="mt-4 text-center text-gray-500 font-sans md:text-xl max-w-2xl mx-auto">
+      Essays and notes on photography, freelancing, creativity, running, and adventure.
+    </p>
+  </header>
+
+  <div class="w-full max-w-5xl px-4 mt-12 grid sm:grid-cols-2 gap-x-8 gap-y-12">
+    {% assign posts = collections.post | sort: "date" | reverse %}
+    {% for post in posts %}
+      <a href="{{ post.url }}" class="group block">
+        {% if post.data.thumbnail %}
+          <div class="overflow-hidden rounded mb-4 aspect-video bg-gray-100">
+            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                 src="{{ post.data.thumbnail }}?tr=w-700" alt="{{ post.data.title | escape }}" />
+          </div>
+        {% endif %}
+        <p class="text-gray-400 font-sans text-xs uppercase tracking-widest">{{ post.date | date: "%B %e, %Y" }}</p>
+        <h2 class="font-sans font-bold text-2xl mt-1 leading-snug text-neutral-900 group-hover:text-blue-600 transition-colors">{{ post.data.title }}</h2>
+        {% if post.data.subtitle %}
+          <p class="text-gray-500 font-sans mt-1">{{ post.data.subtitle }}</p>
+        {% endif %}
+      </a>
+    {% endfor %}
+  </div>
+</section>
