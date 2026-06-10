@@ -25,7 +25,35 @@ const ImageKit = require("imagekit");
 
 const PUB = "https://tonywithasony.substack.com";
 const POSTS_DIR = path.join(__dirname, "..", "_posts");
-const UA = "Mozilla/5.0 (compatible; tonywithasony-importer/1.0)";
+// Look like a real browser. Substack's Cloudflare 403s obvious bots — which
+// matters from CI (datacenter IPs are scrutinized more than residential ones).
+const UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
+const SUBSTACK_HEADERS = {
+  "User-Agent": UA,
+  Accept: "application/json, text/plain, */*",
+  "Accept-Language": "en-US,en;q=0.9",
+  Referer: `${PUB}/archive`,
+};
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// Fetch with retry/backoff on bot-block (403), rate-limit (429), and 5xx.
+async function fetchRetry(url, headers, attempts = 4) {
+  let lastErr;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      const res = await fetch(url, { headers });
+      if (res.ok) return res;
+      lastErr = new Error(`GET ${url} -> ${res.status}`);
+      if (![403, 429, 500, 502, 503, 520, 522].includes(res.status)) throw lastErr;
+    } catch (e) {
+      lastErr = e;
+    }
+    if (i < attempts - 1) await sleep(1500 * 2 ** i); // 1.5s, 3s, 6s
+  }
+  throw lastErr;
+}
 
 const imagekit = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
@@ -34,8 +62,7 @@ const imagekit = new ImageKit({
 });
 
 async function fetchJson(url) {
-  const res = await fetch(url, { headers: { "User-Agent": UA } });
-  if (!res.ok) throw new Error(`GET ${url} -> ${res.status}`);
+  const res = await fetchRetry(url, SUBSTACK_HEADERS);
   return res.json();
 }
 
@@ -75,8 +102,7 @@ const uploadCache = new Map();
 async function rehost(originalUrl, slug) {
   if (!originalUrl) return null;
   if (uploadCache.has(originalUrl)) return uploadCache.get(originalUrl);
-  const res = await fetch(originalUrl, { headers: { "User-Agent": UA } });
-  if (!res.ok) throw new Error(`image GET ${originalUrl} -> ${res.status}`);
+  const res = await fetchRetry(originalUrl, { "User-Agent": UA });
   const buf = Buffer.from(await res.arrayBuffer());
   let fileName = path.basename(new URL(originalUrl).pathname) || "image";
   if (!path.extname(fileName)) fileName += ".jpg";
