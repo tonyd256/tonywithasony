@@ -8,7 +8,8 @@
     "dev:css": "chokidar \"**/*.html\" \"**/*.liquid\" \"**/*.css\" \"_js/*.js\" \".eleventy.js\" -i \"_site\" -i \"node_modules\" -i \".cache\" -i \"netlify\" -c \"yarn build:css\" --initial",
     "build": "npm-run-all build:html build:css",
     "build:html": "npx @11ty/eleventy",
-    "build:css": "npx tailwind -i _css/main.css -o _site/css/main.css"
+    "build:css": "npx tailwind -i _css/main.css -o _site/css/main.css",
+    "import-posts": "node scripts/import-substack.js"
   },
   "dependencies": {
     "@11ty/eleventy": "2",
