@@ -66,6 +66,11 @@ async function fetchJson(url) {
   return res.json();
 }
 
+async function fetchText(url) {
+  const res = await fetchRetry(url, SUBSTACK_HEADERS);
+  return res.text();
+}
+
 // Pull the entire archive, paginating until exhausted.
 async function getArchive() {
   const all = [];
@@ -79,6 +84,52 @@ async function getArchive() {
     if (batch.length < limit) break;
   }
   return all;
+}
+
+// RSS fallback: the /feed endpoint carries every recent post WITH full body HTML,
+// and (unlike api/v1) is served to datacenter IPs, so it works from CI where the
+// API is bot-blocked. Podcasts are identified by their audio enclosure and skipped.
+async function getViaRss() {
+  const xml = await fetchText(`${PUB}/feed`);
+  const $ = cheerio.load(xml, { xmlMode: true });
+  const posts = [];
+  $("item").each((_, el) => {
+    const $it = $(el);
+    const link = $it.find("link").first().text().trim();
+    const slug = (link.split("/p/")[1] || "").split(/[?#]/)[0];
+    if (!slug) return;
+    const encl = $it.find("enclosure").first();
+    const enclType = encl.attr("type") || "";
+    if (/^audio\//i.test(enclType)) return; // podcast — skip
+    posts.push({
+      slug,
+      title: $it.find("title").first().text(),
+      subtitle: $it.find("description").first().text(),
+      post_date: new Date($it.find("pubDate").first().text()).toISOString(),
+      canonical_url: link,
+      cover_image: /^image\//i.test(enclType) ? encl.attr("url") || null : null,
+      body_html: $it.find("encoded").first().text(),
+    });
+  });
+  return posts;
+}
+
+// Prefer the API (full archive, richest data); fall back to RSS when it's blocked.
+// Set SUBSTACK_SOURCE=rss to skip the API entirely (used in CI, where it's
+// bot-blocked, to avoid wasting retry/backoff time on a request we know will fail).
+async function getNewsletters() {
+  if (process.env.SUBSTACK_SOURCE !== "rss") {
+    try {
+      const archive = await getArchive();
+      const list = archive
+        .filter((p) => p.type === "newsletter")
+        .map((p) => ({ slug: p.slug, canonical_url: p.canonical_url, body_html: null }));
+      return { source: "Substack API", list };
+    } catch (e) {
+      console.warn(`  ! API archive unavailable (${e.message}). Falling back to RSS feed.`);
+    }
+  }
+  return { source: "RSS feed", list: await getViaRss() };
 }
 
 // Substack CDN URLs embed the URL-encoded original after the transform segment.
@@ -134,7 +185,7 @@ const escAttr = (s = "") =>
 async function processBody(html, post) {
   const $ = cheerio.load(html, null, false);
   const slug = post.slug;
-  const flags = { video: false };
+  const flags = { video: false, firstImage: null };
 
   // Strip Substack-only widgets.
   $(
@@ -217,6 +268,7 @@ async function processBody(html, post) {
       continue;
     }
     const ik = await rehost(imgOriginal($img), slug);
+    if (ik && !flags.firstImage) flags.firstImage = ik;
     const captionHtml = ($c.find("figcaption").first().html() || "").trim();
     const href = $c.find("a.image-link, a").first().attr("href") || "";
     const external = href && !/substack/i.test(href);
@@ -244,6 +296,7 @@ async function processBody(html, post) {
     const tags = [];
     for (const im of imgs) {
       const ik = await rehost(im.src, slug);
+      if (ik && !flags.firstImage) flags.firstImage = ik;
       if (ik) tags.push(`<img src="${ik}?tr=w-900" alt="" loading="lazy">`);
     }
     if (!tags.length) {
@@ -322,32 +375,41 @@ async function main() {
       .map((f) => f.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.md$/, ""))
   );
 
-  const archive = await getArchive();
-  const newsletters = archive.filter((p) => p.type === "newsletter");
-  console.log(
-    `Archive: ${archive.length} posts, ${newsletters.length} newsletters, ${
-      archive.length - newsletters.length
-    } skipped (podcasts/other).`
-  );
+  const { source, list } = await getNewsletters();
+  console.log(`Source: ${source}. ${list.length} newsletter post(s) available.`);
 
   let imported = 0;
   const videoPosts = [];
-  for (const meta of newsletters) {
-    if (existing.has(meta.slug)) {
-      console.log(`  = skip (exists): ${meta.slug}`);
+  for (const item of list) {
+    if (existing.has(item.slug)) {
+      console.log(`  = skip (exists): ${item.slug}`);
       continue;
     }
-    process.stdout.write(`  + importing ${meta.slug} ... `);
-    const post = await fetchJson(`${PUB}/api/v1/posts/${meta.slug}`);
-    const coverUrl = post.cover_image
-      ? await rehost(originalSrc(post.cover_image), post.slug)
+    process.stdout.write(`  + importing ${item.slug} ... `);
+    let { slug, title, subtitle, post_date, canonical_url, cover_image, body_html } =
+      item;
+    // API source provides only metadata — fetch the full post. RSS already has it.
+    if (!body_html) {
+      const d = await fetchJson(`${PUB}/api/v1/posts/${slug}`);
+      ({ title, subtitle, post_date, canonical_url, cover_image, body_html } = d);
+    }
+    const coverUrl = cover_image
+      ? await rehost(originalSrc(cover_image), slug)
       : null;
-    const { body, flags } = await processBody(post.body_html || "", post);
-    const datePrefix = post.post_date.slice(0, 10);
-    const file = path.join(POSTS_DIR, `${datePrefix}-${post.slug}.md`);
-    fs.writeFileSync(file, `${frontMatter(post, coverUrl)}\n\n${body}\n`);
+    const { body, flags } = await processBody(body_html || "", {
+      slug,
+      title,
+      canonical_url,
+    });
+    const post = { title, subtitle, post_date, slug, canonical_url };
+    const datePrefix = post_date.slice(0, 10);
+    const file = path.join(POSTS_DIR, `${datePrefix}-${slug}.md`);
+    fs.writeFileSync(
+      file,
+      `${frontMatter(post, coverUrl || flags.firstImage)}\n\n${body}\n`
+    );
     imported++;
-    if (flags.video) videoPosts.push(meta.slug);
+    if (flags.video) videoPosts.push(slug);
     console.log("done");
   }
 
